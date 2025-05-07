@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deber Número 5</title>
+    <link rel="stylesheet" href="./public/bootstrap-5.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+      .carousel-item img {
+        height: 600px; /* Puedes ajustar la altura como prefieras */
+        object-fit: cover;
+      }
+    </style>
+    
+</head> 
+
+<body>
+    
+    <!--cabecera -->
+    <header style="background-image: url('./public/img/photo-1656084875963-4dcff8ae224a.jpg');
+    background-size: cover;background-repeat: no-repeat;background-position: center;min-height: 100%;">
+      <h1 class="text-white text-center">Deber de uso de diversos componentes y elementos semáticos</h1>
+      <h2 class="text-white text-center">Perfil personal</h2>
+
+      <nav class="navbar navbar-expand-lg" style="background-color: #575757eb; --bs-breadcrumb-divider: '|';">
+          <div class="container-fluid">
+            <ol class="breadcrumb my-2">
+              <!-- Modal 1: Información -->
+              <li class="breadcrumb-item">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                  Información
+                </button>
+              </li>
+        
+              <!-- Modal 2: Detalles -->
+              <li class="breadcrumb-item">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalDetalles">
+                  Detalles
+                </button>
+              </li>
+            </ol>
+          </div>
+        </nav>
+        
+        <!-- Modal: Información -->
+        <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="modalInfoLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalInfoLabel">Información Personal</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <b>Nombre:</b> Bryan Rosero<br>
+                <b>Curso:</b> 4to Semestre<br>
+                <b>Fecha:</b> 2025-10-01<br>
+                <b>Docente:</b> Ing. David Criollo<br>
+                <b>Materia:</b> Programación Web
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal: Detalles -->
+        <div class="modal fade" id="modalDetalles" tabindex="-1" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalDetallesLabel">Detalles de la Práctica</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                Práctica en HTML del uso de elementos semánticos, contenedores y etiquetas para la creación de un perfil personal.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+    </header>
+
+    <!--estructura-->
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+            <!--columna izquierda-->
+            <div class="col-md-3 p-3" style="background-image: url('./public/img/fondo-iz2.jpg');
+                background-size: cover;background-repeat: no-repeat;background-position: center;min-height: 90%;">
+                <br>
+                <div style="position: sticky; top: 100px;">
+                    <fieldset class="border p-3" style="background-color: rgb(194, 204, 229); border-radius: 10px;">
+                        <h3>Información General</h3>
+                        <nav>
+                            <h4>Contacto</h4>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-telephone-fill"></i> +593 96 909 1787</li>
+                                <li><i class="bi bi-envelope-fill"></i> bryanroserod@gmail.com</li>
+                                <li><i class="bi bi-envelope-at-fill"></i> barosero@espe.edu.ec</li>
+                            </ul>
+                        </nav>
+                    </fieldset>
+                </div>
+            </div>
+
+            <!--columna central-->
+            <div class="col-md-6"  style="background-color:rgb(62, 75, 106)";>
+                <section class="my-3 text-white">
+                    <fieldset class="border p-3" style="background-color: rgb(48, 52, 62); border-radius: 10px;">
+
+                    <h4>Sobre mí</h4>
+                    <p>
+                        Soy estudiante de la carrera de Ing. en Sistemas Computacionales, me gusta aprender cosas nuevas y mejorar mis habilidades.
+                        Me interesa mucho el desarrollo web y la programación en general. 
+                        <br>
+                        Me gusta mucho la música, el cine y los videojuegos.
+                        <br>
+                        
+                    </p>
+                    </fieldset>
+                </section>
+                
+                <section class="my-3 text-white">
+                    <fieldset class="border p-3" style="background-color: rgb(48, 52, 62); border-radius: 10px;">
+                    <h4>Galería de fotos</h4>
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                      <!-- Indicadores -->
+                      <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                      </div>
+        
+                      <!-- Slides -->
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <img src="./public/img/WhatsApp Image 2025-05-02 at 9.09.04 AM (1).jpeg" class="d-block w-100" alt="Imagen 1">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Excursion</h5>
+                            <p>Hace 2 años (fui obligado)</p>
+                          </div>
+                        </div>
+                    
+                        <div class="carousel-item">
+                          <img src="./public/img/WhatsApp Image 2025-05-02 at 9.09.04 AM (2).jpeg" class="d-block w-100" alt="Imagen 2">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Fogata</h5>
+                            <p>Mejor recuerdo que tengo de un campamento de vacaciones</p>
+                          </div>
+                        </div>
+                    
+                        <div class="carousel-item">
+                          <img src="./public/img/WhatsApp Image 2025-05-02 at 9.09.05 AM (1).jpeg" class="d-block w-100" alt="Imagen 3">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Practica</h5>
+                            <p>Dibujo de practica hecho a mano con referecias visuales.</p>
+                          </div>
+                        </div>
+                    
+                        <div class="carousel-item">
+                          <img src="./public/img/WhatsApp Image 2025-05-02 at 9.09.05 AM (2).jpeg" class="d-block w-100" alt="Imagen 4">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Mitad del mundo</h5>
+                            <p>Museo que se encuentra en San Antonio, a lado de la UNASUR</p>
+                          </div>
+                        </div>
+                    
+                        <div class="carousel-item">
+                          <img src="./public/img/WhatsApp Image 2025-05-02 at 9.09.05 AM.jpeg" class="d-block w-100" alt="Imagen 5">
+                          <div class="carousel-caption d-none d-md-block">
+                            <h5>Gato</h5>
+                            <p>Mi mascota en su habitad natural (las masetas del patio).</p>
+                          </div>
+                        </div>
+                      </div>
+                    
+                      <!-- Controles -->
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                      </button>
+                    </div>
+                    </fieldset>
+                </section>
+                                    
+                <section class="my-3 text-white">
+                  <fieldset class="border p-4" style="background-color: rgb(48, 52, 62); border-radius: 10px;">
+                    <h4 class="mb-4">Películas Favoritas</h4>
+                    <div class="row g-4">
+                      
+                      <div class="col-md-4">
+                        <div class="card h-100 bg-dark text-white">
+                          <video controls class="card-img-top" style="border-radius: 0.5rem 0.5rem 0 0;">
+                            <source src="./public/vid/do-not-go-gentle-into-good-night.mp4" type="video/mp4">
+                            Tu navegador no soporta este video.
+                          </video>
+                          <div class="card-body">
+                            <h5 class="card-title">Interestelar</h5>
+                            <p class="card-text">Una obra maestra de ciencia ficción que explora el amor, el tiempo y la relatividad.</p>
+                            <a href="https://www.youtube.com/watch?v=LYS2O1nl9iM&ab_channel=WarnerBros.PicturesLatinoam%C3%A9rica" class="btn btn-primary">Ver más</a>
+                          </div>
+                        </div>
+                      </div>
+                
+                      <div class="col-md-4">
+                        <div class="card h-100 bg-dark text-white">
+                          <video controls class="card-img-top" style="border-radius: 0.5rem 0.5rem 0 0;">
+                            <source src="./public/vid/hang-on-s17.mp4" type="video/mp4">
+                            Tu navegador no soporta este video.
+                          </video>
+                          <div class="card-body">
+                            <h5 class="card-title">Titanes del Pacífico</h5>
+                            <p class="card-text">Robots gigantes contra monstruos: pura acción y visuales espectaculares.</p>
+                            <a href="https://www.youtube.com/watch?v=4NCG8bp4BI0&ab_channel=WarnerBros.PicturesEspa%C3%B1a" class="btn btn-primary">Ver más</a>
+                          </div>
+                        </div>
+                      </div>
+                
+                      <div class="col-md-4">
+                        <div class="card h-100 bg-dark text-white">
+                          <video controls class="card-img-top" style="border-radius: 0.5rem 0.5rem 0 0;">
+                            <source src="./public/vid/you-sure-thats-yeah.mp4" type="video/mp4">
+                            Tu navegador no soporta este video.
+                          </video>
+                          <div class="card-body">
+                            <h5 class="card-title">Django sin Cadenas</h5>
+                            <p class="card-text">Un western sangriento, emotivo y liberador, dirigido por Tarantino.</p>
+                            <a href="https://www.youtube.com/watch?v=CLofzNkIqAc&ab_channel=SonyPicturesEspa%C3%B1a" class="btn btn-primary">Ver más</a>
+                          </div>
+                        </div>
+                      </div>
+                
+                    </div>
+                  </fieldset>
+                </section>
+                                  
+
+                <section class="my-3 text-white">
+                    <fieldset class="border p-3" style="background-color: rgb(48, 52, 62); border-radius: 10px;">
+                    <h4>Play list personal</h4>
+                    <p>Pride/Kendrik Lamar</p>
+                    <audio controls>
+                        <source src="./public/music/WhatsApp Audio 2025-04-24 at 9.32.51 PM.mp4" type="audio/mpeg">
+                        Tu navegador no soporta este audio.
+                    </audio>
+                    <p>Evil/Interpol</p>
+                    <audio controls>
+                        <source src="./public/music/WhatsApp Audio 2025-04-24 at 9.33.19 PM.mp4" type="audio/mpeg">
+                        Tu navegador no soporta este audio.
+                    </audio>
+                    <p>El Mañana/ Gorillaz</p>
+                    <audio controls>
+                        <source src="./public/music/el mañana.mp4" type="audio/mpeg">
+                        Tu navegador no soporta este audio.
+                    </audio>
+                    <p>Homecoming/ Kanye West</p>
+                    <audio controls>
+                        <source src="./public/music/homecoming.mp4" type="audio/mpeg">
+                        Tu navegador no soporta este audio.
+                    </audio>
+                    <p>Lo malo de ser bueno/ Cuarteto de nos</p>
+                    <audio controls>
+                        <source src="./public/music/lo malo de ser bueno.mp4" type="audio/mpeg">
+                        Tu navegador no soporta este audio.
+                    </audio>
+                    <p>Yellow/ ColdPlay</p>
+                    <audio controls>
+                        <source src="./public/music/yellow.mp4" type="audio/mpeg">
+                        Tu navegador no soporta este audio.
+                    </audio>
+                    </fieldset>
+                </section>
+            </div>
+
+            <!-- columna derecha -->
+          <div class="col-md-3 p-3" style="background-image: url('./public/img/fondo-der.jpg');
+              background-size: cover; background-repeat: no-repeat; background-position: center; min-height: 100%;">
+              
+              <h3 class="text-white">Favoritos</h3>
+              <div class="accordion" id="accordionExample">
+
+                  <!-- Hobies -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingHobies">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Hobies" aria-expanded="false" aria-controls="Hobies">
+                              Hobies
+                          </button>
+                      </h2>
+                      <div id="Hobies" class="accordion-collapse collapse" aria-labelledby="headingHobies" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                              En mi tiempo libre suelo: jugar videojuegos de PS2, hacer papercraft y origami, 
+                              solía dibujar pero lo dejé hace un tiempo, ver películas y series de acción.
+       
+                              <div class="mt-4">
+                                <figure class="mb-4 text-center">
+                                  <img src="./public/image/origami.avif" alt="dragón de origami" class="img-fluid rounded shadow" style="max-width: 200px;">
+                                  <figcaption class="text-muted mt-2"><i>Modelo de dragón de origami hecho con una sola pieza de papel</i></figcaption>
+                                </figure>
+                            
+                                <figure class="mb-4 text-center">
+                                  <img src="./public/image/Resi4-gc-cover.jpg" alt="Resident Evil 4" class="img-fluid rounded shadow" style="max-width: 200px;">
+                                  <figcaption class="text-muted mt-2"><i>Juego favorito de PS2: Resident Evil 4</i></figcaption>
+                                </figure>
+                            
+                                <figure class="mb-4 text-center">
+                                  <img src="./public/image/WhatsApp Image 2025-05-02 at 9.09.03 AM.jpeg" alt="Gipsy Danger" class="img-fluid rounded shadow" style="max-width: 200px;">
+                                  <figcaption class="text-muted mt-2"><i>Modelo del personaje Gipsy Danger de la película <strong>Titanes del Pacífico</strong></i></figcaption>
+                                </figure>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Temas de interés -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingInteres">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#interes" aria-expanded="false" aria-controls="interes">
+                              Temas de interés
+                          </button>
+                      </h2>
+                      <div id="interes" class="accordion-collapse collapse" aria-labelledby="headingInteres" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                              Me interesa mucho investigar sobre ingeniería aeronáutica (en sus conceptos y datos más interesantes),
+                              y sobre la carrera espacial durante la Guerra Fría entre la U.R.S.S. y E.E.U.U.
+                              
+                              <!-- Modal 1 -->
+                              <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalInteres">
+                                  Más información...
+                              </button>
+
+                              <div class="modal fade" id="modalInteres" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalInteresLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-scrollable">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h1 class="modal-title fs-5" id="modalInteresLabel">Información</h1>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <h5 class="text-success">Ingeniería Aeronáutica</h5>
+                                            <p>
+                                              La ingeniería aeronáutica se encarga del diseño, desarrollo y mantenimiento de aeronaves. Algunos conceptos fascinantes incluyen:
+                                            </p>
+                                            <ul>
+                                              <li><b>Sustentación:</b> Principio físico que permite a un avión mantenerse en el aire.</li>
+                                              <li><b>Materiales compuestos:</b> Utilizados en aviones modernos por su resistencia y bajo peso.</li>
+                                              <li><b>Diseño aerodinámico:</b> Fundamental para reducir la resistencia al avance y mejorar la eficiencia.</li>
+                                            </ul>
+                                            <p>
+                                               <a href="https://www.youtube.com/watch?v=DzWgqxUNIXM&ab_channel=CuriosaMente">¿Cómo vuela un avión? (video de CuriosaMente)</a>
+                                            </p>
+                                            <hr>
+                                            <h5 class="text-success"> Carrera Espacial en la Guerra Fría</h5>
+                                            <p>
+                                              Durante la Guerra Fría, EE.UU. y la U.R.S.S. compitieron por la supremacía espacial. Algunos hitos clave:
+                                            </p>
+                                            <ul>
+                                              <li><b>Sputnik I (1957):</b> Primer satélite artificial, lanzado por la U.R.S.S.</li>
+                                              <li><b>Apollo 11 (1969):</b> EE.UU. logra llevar al primer hombre a la Luna.</li>
+                                              <li><b>Estaciones espaciales:</b> Skylab (EE.UU.) y Salyut/MIR (U.R.S.S.) marcaron el inicio de la vida prolongada en el espacio.</li>
+                                            </ul>
+                                            <p>
+                                               <a href="https://www.youtube.com/watch?v=Gks-IZvkNfo&ab_channel=MemoriasdePez">La Carrera Espacial explicada (Academia Play)</a>
+                                            </p>
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Planes a futuro -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingFuturo">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#futuro" aria-expanded="false" aria-controls="futuro">
+                              Planes a futuro
+                          </button>
+                      </h2>
+                      <div id="futuro" class="accordion-collapse collapse" aria-labelledby="headingFuturo" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                              Me gustaría desarrollarme como ingeniero en software, viajar por el mundo y trabajar en proyectos innovadores.
+                              <br>
+                              <img src="./public/image/ingenieria-software.jpg" alt="ing" width="250">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <br>
+              <h3 class="text-white">Ubicación de la universidad en la que estudio</h3>
+              <br>
+              <iframe  
+                  id="inlineFrameExample"
+                  title="Camino a la ESPE"
+                  width="100%"
+                  height="200"
+                  style="border: none; border-radius: 10px;"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-78.44629883766176%2C-0.31538863648511006%2C-78.4437882900238%2C-0.31357817267204025&amp;layer=mapnik">
+              </iframe>
+          </div>
+
+      </div>
+      <script src="./public/bootstrap-5.3.5-dist/js/bootstrap.bundle.min.js"></script>
+
+    </main>
+  
+    <!--pie de pagina-->
+    <footer class="text-center p-4 bg-dark text-white">
+        © 2025 Bryan Rosero - Todos los derechos reservados.
+    </footer>
+    
+
+
+</body>
+</html>
