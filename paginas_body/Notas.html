@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="background-color: #f8f9fa;">
+
+  <section class="container py-4">
+    <h2 class="text-center text-primary fw-bold mb-4">Añadir Notas Estudiantiles</h2>
+
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h6 class="m-0">Aquí puede añadir y editar las notas de los estudiantes registrados.</h6>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive mt-3">
+          <table class="table table-bordered table-hover table-striped align-middle">
+            <thead class="table-light">
+              <tr class="text-center">
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Departamento</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Promedio</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-notas">
+              <!-- Las filas se insertarán aquí dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="text-center mt-3">
+          <button class="btn btn-success" onclick="guardarNotas()">
+            <i class="bi bi-save me-1"></i> Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

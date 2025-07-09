@@ -28,6 +28,34 @@ function guardarDatosUsuario(){
 
     alert("¡Perfil guardado correctamente!");
 }
+      `;ent.getElementById("apellido").value;
+    var fecha = document.getElementById("fechanacimiento").value;
+    var departamento = document.getElementById("Departamento").value;
+    var latitud = document.getElementById("latitud").value;
+    var longitud = document.getElementById("longitud").value;
+
+    // Tomar la imagen del canvas como base64
+    var canvas = document.getElementById("foto_resultado");
+    var foto = canvas.toDataURL("image/png");
+
+    //guardar como objeto
+    var perfil = {
+        nombre,
+        apellido,
+        fecha,
+        departamento,
+        latitud,
+        longitud,
+        foto,
+        // campos de notas
+        notas: ["", "", ""],
+        promedio: ""
+    };
+
+    localStorage.setItem("perfil_"+nombre+"_"+apellido, JSON.stringify(perfil));
+
+    alert("¡Perfil guardado correctamente!");
+}
 
 function cargarPerfiles() {
   const tabla = document.getElementById("tabla-perfiles");
@@ -70,6 +98,7 @@ function cargarPerfiles() {
     }
   }
 }
+
 
 function eliminarUsuario(clave) {
   if (confirm("¿Estás seguro de que querés eliminar este perfil?")) {
@@ -117,29 +146,6 @@ function cargarNotasTabla() {
       tabla.appendChild(fila);
     }
   }
-}
-
-// Función para limitar el valor de las notas a máximo 20
-function limitarNota(input) {
-    let valor = parseFloat(input.value);
-    let capped = false;
-    
-    if (valor > 20) {
-        valor = 20;
-        capped = true;
-    }
-    
-    if (capped) {
-        input.value = valor;
-    }
-    
-    // Extraer la clave del id del input para calcular el promedio
-    const inputId = input.id;
-    const [notaIndex, ...claveArray] = inputId.split('-');
-    const clave = claveArray.join('-');
-    
-    // Calcular promedio después de limitar el valor
-    calcularPromedio(clave);
 }
 
 function calcularPromedio(clave) {
@@ -208,6 +214,29 @@ function guardarNotas() {
   });
   
   alert("¡Notas guardadas correctamente!");
+}
+
+// Función para limitar el valor de las notas a máximo 20
+function limitarNota(input) {
+    let valor = parseFloat(input.value);
+    let capped = false;
+    
+    if (valor > 20) {
+        valor = 20;
+        capped = true;
+    }
+    
+    if (capped) {
+        input.value = valor;
+    }
+    
+    // Extraer la clave del id del input para calcular el promedio
+    const inputId = input.id;
+    const [notaIndex, ...claveArray] = inputId.split('-');
+    const clave = claveArray.join('-');
+    
+    // Calcular promedio después de limitar el valor
+    calcularPromedio(clave);
 }
 
 // Ejecutar al cargar la página
