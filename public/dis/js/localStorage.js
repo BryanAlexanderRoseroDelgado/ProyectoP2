@@ -31,6 +31,26 @@ function guardarDatosUsuario() {
   alert("¡Perfil guardado correctamente!");
 }
 
+function openProductModal(producto) {
+  const modalElement = document.getElementById("productModal");
+
+  // 🔴 Elimina cualquier backdrop vieja (muy importante)
+  document.querySelectorAll(".modal-backdrop").forEach((el) => el.remove());
+  document.body.classList.remove("modal-open");
+  document.body.style = "";
+
+  // Rellenar el contenido
+  document.getElementById("modalImage").src = producto.image;
+  document.getElementById("productModalLabel").textContent = producto.name;
+  document.getElementById("modalDescription").textContent =
+    producto.description;
+  document.getElementById("modalPrice").textContent = "$" + producto.price;
+
+  // Mostrar el modal solo si aún no está visible
+  const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+  modalInstance.show();
+}
+
 function cargarPerfiles() {
   const tabla = document.getElementById("tabla-perfiles");
   if (!tabla) {
@@ -58,7 +78,7 @@ function cargarPerfiles() {
 
       const fila = document.createElement("tr");
       fila.classList.add("fila-perfil");
-fila.innerHTML = `
+      fila.innerHTML = `
   <td>${perfil.cedula}</td>
   <td>${perfil.nombre}</td>
   <td>${perfil.apellido}</td>
@@ -82,12 +102,13 @@ function eliminarUsuario(clave) {
   }
 }
 
-
 function guardarProducto() {
   const nombre = document.getElementById("nombreProducto").value.trim();
   const tipo = document.getElementById("tipoProducto").value.toLowerCase();
   const precio = parseFloat(document.getElementById("precioProducto").value);
-  const descripcion = document.getElementById("descripcionProducto").value.trim();
+  const descripcion = document
+    .getElementById("descripcionProducto")
+    .value.trim();
   const archivoImagen = document.getElementById("imagenProducto").files[0];
 
   if (!archivoImagen) {
@@ -104,11 +125,10 @@ function guardarProducto() {
       type: tipo,
       price: precio,
       description: descripcion,
-      image: imagenBase64
+      image: imagenBase64,
     };
 
-
-    const key = "productos_" + tipo; 
+    const key = "productos_" + tipo;
     let productosGuardados = JSON.parse(localStorage.getItem(key)) || [];
     productosGuardados.push(producto);
     localStorage.setItem(key, JSON.stringify(productosGuardados));
@@ -117,7 +137,7 @@ function guardarProducto() {
     document.getElementById("form-producto").reset();
   };
 
-  lector.readAsDataURL(archivoImagen); 
+  lector.readAsDataURL(archivoImagen);
 }
 
 function cargarProductosDesdeLocalStorage(tipo, containerId) {
@@ -129,25 +149,31 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
     const card = document.createElement("div");
     card.className = "col-md-4";
 
-    // Usamos data-product para guardar el producto en JSON para evitar problemas en inline onclick
     card.innerHTML = `
-      <div class="card h-100 bg-dark text-white">
-        <img src="${producto.image}" class="card-img-top" alt="${producto.name}" style="height: 200px; object-fit: cover;">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <h5 class="card-title" style="font-size: 18px; color: rgba(0, 255, 13, 0.952);">${producto.name}</h5>
-          <p class="card-text">${producto.description}</p>
-          <div class="mt-auto">
-            <h4 class="fw-bold" style="font-size: 18px; color: rgba(255, 72, 0, 0.95);">Precio: $${producto.price}</h4>
-          </div>
-        </div>
+  <div class="card h-100 shadow-lg rounded-4 border-0"
+       style="background: var(--color-sesion); color: var(--color-sesion-texto);">
+    <img src="${producto.image}" class="card-img-top rounded-top-4" 
+         alt="${producto.name}" style="height: 200px; object-fit: cover;">
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title fw-bold mb-2 text-center">${producto.name}</h5>
+      <p class="fw-semibold text-center mb-3">Precio: $${producto.price}</p>
+      <div class="d-grid mt-auto">
+        <button class="btn btn-sm ver-mas"
+                style="background: var(--color-boton); color: var(--color-texto); border: none;"
+                onmouseover="this.style.background='var(--color-hover)'"
+                onmouseout="this.style.background='var(--color-boton)'"
+                data-product='${JSON.stringify(producto)}'>
+          Ver más
+        </button>
       </div>
-    `;
+    </div>
+  </div>
+`;
 
     contenedor.appendChild(card);
   });
 
-  // Agregar event listeners a los botones "Ver más"
-  document.querySelectorAll(".ver-mas").forEach(btn => {
+  document.querySelectorAll(".ver-mas").forEach((btn) => {
     btn.addEventListener("click", () => {
       const producto = JSON.parse(btn.getAttribute("data-product"));
       openProductModal(producto);
@@ -155,20 +181,5 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
   });
 }
 
-function openProductModal(producto) {
-  document.getElementById("modalImage").src = producto.image;
-  document.getElementById("productModalLabel").textContent = producto.name;
-  document.getElementById("modalDescription").textContent = producto.description;
-  document.getElementById("modalPrice").textContent = "$" + producto.price;
-
-  const detailsList = document.getElementById("modalDetails");
-  detailsList.innerHTML = `<li><strong>Tipo:</strong> ${producto.type}</li>`;
-
-  const modal = new bootstrap.Modal(document.getElementById("productModal"));
-  modal.show();
-}
-
-
 // Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", cargarPerfiles);
-
