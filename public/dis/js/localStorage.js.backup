@@ -1,0 +1,243 @@
+function guardarDatosUsuario(){
+    var nombre = document.getElementById("nombre").value;
+    var apellido = document.getElementById("apellido").value;
+    var fecha = document.getElementById("fechanacimiento").value;
+    var departamento = document.getElementById("Departamento").value;
+    var latitud = document.getElementById("latitud").value;
+    var longitud = document.getElementById("longitud").value;
+
+    // Tomar la imagen del canvas como base64
+    var canvas = document.getElementById("foto_resultado");
+    var foto = canvas.toDataURL("image/png");
+
+    //guardar como objeto
+    var perfil = {
+        nombre,
+        apellido,
+        fecha,
+        departamento,
+        latitud,
+        longitud,
+        foto,
+        // campos de notas
+        notas: ["", "", ""],
+        promedio: ""
+    };
+
+    localStorage.setItem("perfil_"+nombre+"_"+apellido, JSON.stringify(perfil));
+
+    alert("¡Perfil guardado correctamente!");
+}
+      `;ent.getElementById("apellido").value;
+    var fecha = document.getElementById("fechanacimiento").value;
+    var departamento = document.getElementById("Departamento").value;
+    var latitud = document.getElementById("latitud").value;
+    var longitud = document.getElementById("longitud").value;
+
+    // Tomar la imagen del canvas como base64
+    var canvas = document.getElementById("foto_resultado");
+    var foto = canvas.toDataURL("image/png");
+
+    //guardar como objeto
+    var perfil = {
+        nombre,
+        apellido,
+        fecha,
+        departamento,
+        latitud,
+        longitud,
+        foto,
+        // campos de notas
+        notas: ["", "", ""],
+        promedio: ""
+    };
+
+    localStorage.setItem("perfil_"+nombre+"_"+apellido, JSON.stringify(perfil));
+
+    alert("¡Perfil guardado correctamente!");
+}
+
+function cargarPerfiles() {
+  const tabla = document.getElementById("tabla-perfiles");
+  if (!tabla) {
+    console.error("No se encontró el tbody con id 'tabla-perfiles'");
+    return;
+  }
+
+  tabla.innerHTML = ""; 
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const clave = localStorage.key(i);
+
+    if (clave.startsWith("perfil_")) {
+    const perfil = JSON.parse(localStorage.getItem(clave));
+
+    // Calcular edad a partir de la fecha de nacimiento
+    const nacimiento = new Date(perfil.fecha);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const m = hoy.getMonth() - nacimiento.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+    }
+
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+        <td>${perfil.nombre}</td>
+        <td>${perfil.apellido}</td>
+        <td>${edad} años</td>
+        <td>${perfil.departamento}</td>
+        <td>${perfil.latitud}; ${perfil.longitud}</td>
+        <td><img src="${perfil.foto}" width="100" style="border-radius: 10%; border: 1px solid #ccc;"></td>
+        <td><button class="btn btn-outline-danger" onclick="eliminarUsuario('${clave}')">Eliminar</button></td>
+    `;
+
+    tabla.appendChild(fila);
+    }
+  }
+}
+
+
+function eliminarUsuario(clave) {
+  if (confirm("¿Estás seguro de que querés eliminar este perfil?")) {
+    localStorage.removeItem(clave);
+    cargarPerfiles(); // Recargar lista
+  }
+}
+
+// DE AQUÍ ABAJO LA TABLA DE NOTAS
+
+function cargarNotasTabla() {
+  const tabla = document.getElementById("tabla-notas");
+  if (!tabla) {
+    console.error("No se encontró el tbody con id 'tabla-notas'");
+    return;
+  }
+
+  tabla.innerHTML = ""; 
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const clave = localStorage.key(i);
+
+    if (clave.startsWith("perfil_")) {
+      const perfil = JSON.parse(localStorage.getItem(clave));
+
+      // para los perfiles antiguos que no incluyan notas
+      if (!perfil.hasOwnProperty('notas')) {
+        perfil.notas = ["", "", ""];
+        perfil.promedio = "";
+        localStorage.setItem(clave, JSON.stringify(perfil));
+      }
+
+      const fila = document.createElement("tr");
+
+      fila.innerHTML = `
+        <td>${perfil.nombre}</td>
+        <td>${perfil.apellido}</td>
+        <td>${perfil.departamento}</td>
+        <td><input type="number" class="form-control nota-input" id="nota0-${clave}" value="${perfil.notas[0]}" min="0" max="20" step="0.1" onchange="calcularPromedio('${clave}')" oninput="limitarNota(this)"></td>
+        <td><input type="number" class="form-control nota-input" id="nota1-${clave}" value="${perfil.notas[1]}" min="0" max="20" step="0.1" onchange="calcularPromedio('${clave}')" oninput="limitarNota(this)"></td>
+        <td><input type="number" class="form-control nota-input" id="nota2-${clave}" value="${perfil.notas[2]}" min="0" max="20" step="0.1" onchange="calcularPromedio('${clave}')" oninput="limitarNota(this)"></td>
+        <td><input type="number" class="form-control" id="promedio-${clave}" value="${perfil.promedio}" readonly style="background-color: #f8f9fa;"></td>
+      `;
+
+      tabla.appendChild(fila);
+    }
+  }
+}
+
+function calcularPromedio(clave) {
+  const perfil = JSON.parse(localStorage.getItem(clave));
+  
+  const nota0Input = document.getElementById(`nota0-${clave}`);
+  const nota1Input = document.getElementById(`nota1-${clave}`);
+  const nota2Input = document.getElementById(`nota2-${clave}`);
+  
+  const nota0 = parseFloat(nota0Input.value) || 0;
+  const nota1 = parseFloat(nota1Input.value) || 0;
+  const nota2 = parseFloat(nota2Input.value) || 0;
+  
+  // Calcular promedio solo si hay al menos una nota
+  let promedio = "";
+  if (nota0 > 0 || nota1 > 0 || nota2 > 0) {
+    const totalNotas = (nota0 > 0 ? 1 : 0) + (nota1 > 0 ? 1 : 0) + (nota2 > 0 ? 1 : 0);
+    promedio = ((nota0 + nota1 + nota2) / (totalNotas > 0 ? totalNotas : 1)).toFixed(2);
+  }
+  
+  const promedioInput = document.getElementById(`promedio-${clave}`);
+  if (promedioInput) {
+    promedioInput.value = promedio;
+  }
+}
+
+function guardarNotas() {
+  const inputs = document.querySelectorAll('.nota-input');
+  
+  // Agrupar inputs por clave para procesar cada perfil una sola vez
+  const perfilesPorClave = {};
+  
+  inputs.forEach(input => {
+    // Extract clave and note index from the id (format: "nota0-clave", "nota1-clave", "nota2-clave")
+    const inputId = input.id;
+    const [notaIndex, ...claveArray] = inputId.split('-');
+    const clave = claveArray.join('-'); // Rejoin in case clave contains dashes
+    const index = parseInt(notaIndex.replace('nota', ''));
+    const valor = input.value;
+    
+    if (!perfilesPorClave[clave]) {
+      perfilesPorClave[clave] = JSON.parse(localStorage.getItem(clave));
+    }
+    
+    // Actualizar la nota en el índice correspondiente del array
+    perfilesPorClave[clave].notas[index] = valor;
+  });
+  
+  // Procesar cada perfil una vez
+  Object.keys(perfilesPorClave).forEach(clave => {
+    const perfil = perfilesPorClave[clave];
+    
+    const nota0 = parseFloat(perfil.notas[0]) || 0;
+    const nota1 = parseFloat(perfil.notas[1]) || 0;
+    const nota2 = parseFloat(perfil.notas[2]) || 0;
+    
+    let promedio = "";
+    if (nota0 > 0 || nota1 > 0 || nota2 > 0) {
+      const totalNotas = (nota0 > 0 ? 1 : 0) + (nota1 > 0 ? 1 : 0) + (nota2 > 0 ? 1 : 0);
+      promedio = ((nota0 + nota1 + nota2) / (totalNotas > 0 ? totalNotas : 1)).toFixed(2);
+    }
+    
+    perfil.promedio = promedio;
+    
+    localStorage.setItem(clave, JSON.stringify(perfil));
+  });
+  
+  alert("¡Notas guardadas correctamente!");
+}
+
+// Función para limitar el valor de las notas a máximo 20
+function limitarNota(input) {
+    let valor = parseFloat(input.value);
+    let capped = false;
+    
+    if (valor > 20) {
+        valor = 20;
+        capped = true;
+    }
+    
+    if (capped) {
+        input.value = valor;
+    }
+    
+    // Extraer la clave del id del input para calcular el promedio
+    const inputId = input.id;
+    const [notaIndex, ...claveArray] = inputId.split('-');
+    const clave = claveArray.join('-');
+    
+    // Calcular promedio después de limitar el valor
+    calcularPromedio(clave);
+}
+
+// Ejecutar al cargar la página
+document.addEventListener("DOMContentLoaded", cargarPerfiles);
