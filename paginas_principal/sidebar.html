@@ -1,5 +1,5 @@
 <!-- sidebar.html -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarConfig">
+<div class="offcanvas offcanvas-start transparentesidebar" tabindex="-1" id="sidebarConfig">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title">Configuración</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
@@ -8,19 +8,19 @@
     <form>
       <div class="mb-3">
         <label class="form-label">Notificaciones</label>
-        <select class="form-select">
+        <select class="form-select" id="">
           <option>Activadas</option>
           <option>Desactivadas</option>
         </select>
       </div>
       <div class="mb-3">
         <label class="form-label">Tema</label>
-        <select class="form-select">
-          <option>Claro</option>
-          <option>Oscuro</option>
+        <select class="form-select" id="tema-seleccion" onchange="cambiarTema(this)">
+          <option value="tema-claro">Claro</option>
+          <option value="tema-oscuro">Oscuro</option>
         </select>
       </div>
-      <button class="btn btn-success">Guardar Cambios</button>
+     
     </form>
   </div>
 </div>

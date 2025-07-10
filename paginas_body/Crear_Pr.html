@@ -1,0 +1,38 @@
+<section class="container py-5 transparenteforms">
+    <h2 class="text-center fw-bold mb-4">Agregar Producto</h2>
+    <form id="form-producto">
+        <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Nombre del producto:</label>
+            <input type="text" id="nombreProducto" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tipoProducto" class="form-label">Tipo de producto:</label>
+            <select id="tipoProducto" class="form-control" required>
+                <option value="teclado">Teclado</option>
+                <option value="mouse">Mouse</option>
+                <option value="auricular">Auriculares</option>
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="precioProducto" class="form-label">Precio:</label>
+            <input type="number" id="precioProducto" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcionProducto" class="form-label">Descripción:</label>
+            <textarea id="descripcionProducto" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="imagenProducto" class="form-label">Foto del producto:</label>
+            <input type="file" id="imagenProducto" class="form-control" accept="image/*" required>
+        </div>
+
+        <div class="text-end">
+            <button type="button" class="btn btn-success" onclick="guardarProducto()">Guardar Producto</button>
+        </div>
+    </form>
+</section>

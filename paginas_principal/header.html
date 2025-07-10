@@ -1,21 +1,26 @@
-<nav class="navbar navbar-expand-lg" style="background-image: url('./public/image/fondo.jpg');">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid position-relative">
 
     <!-- Botón sidebar (izquierda) -->
-    <button class="btn btn-outline-light me-2" data-bs-toggle="offcanvas" data-bs-target="#sidebarConfig">
-      <i class="bi bi-list"></i>
+    <button class="btn me-2 hamburger-toggle" data-bs-toggle="offcanvas" data-bs-target="#sidebarConfig">
+      <div class="hamburger-menu">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </button>
+
 
     <!-- Título centrado -->
     <div class="position-absolute top-50 start-50 translate-middle">
-      <a class="navbar-brand fw-bold text-white" href="#" onclick="cargarContenido('./paginas_body/Casa.html','contenido')">
-        <i class="bi bi-person-circle me-1"></i> Mi Perfil Estudiantil
+      <a class="navbar-brand fw-bold" href="#" onclick="cargarContenido('./paginas_body/Casa.html','contenido')">
+        <i class="bi bi-person-circle me-1"></i> Gestion de Facturas
       </a>
     </div>
 
     <!-- Botón logout (derecha) -->
     <div class="ms-auto">
-      <a href="./Login.html" class="btn btn-light">
+      <a href="./Login.html" class="btn" id="btn_sesion">
         <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
       </a>
     </div>

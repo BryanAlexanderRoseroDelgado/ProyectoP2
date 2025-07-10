@@ -1,42 +1,44 @@
-<section style="
-    background-image: url('./public/image/header.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding-top: 20px;
-    min-height: 100vh;
-    position: relative;
-">
+<!-- Contenido principal -->
+<div style="position: sticky; z-index: 1;" id="menu_navegacion" class="">
 
-  <!-- Capa oscura sobre la imagen -->
-  <div style="
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 0;
-  "></div>
-
-  <!-- Contenido principal -->
-  <div style="position: relative; z-index: 1;">
-    <ul class="nav nav-tabs justify-content-center bg-light rounded-pill px-2 py-1 shadow">
-      <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" href="#" onclick="cargarContenido('./paginas_body/Casa.html','contenido')">
-          <i class="bi bi-house-door-fill me-1"></i> Inicio
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" href="#" onclick="cargarContenido('./paginas_body/Crear.html','contenido')">
-          <i class="bi bi-person-plus-fill me-1"></i> Crear Perfil
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark fw-bold" href="#" onclick="cargarContenido('paginas_body/Ver.html', 'contenido', cargarPerfiles);">
-          <i class="bi bi-card-list me-1"></i> Ver Perfil
-        </a>
-      </li>
-    </ul>
-
-    <!-- Contenedor para el contenido dinámico -->
-    <div id="contenido" class="p-4"></div>
-  </div>
-</section>
+  <ul class="nav nav-tabs justify-content-center px-2 py-1 transparentesbarra">
+    <li class="nav-item">
+      <a class="nav-link fw-bold" href="#" onclick="cargarContenido('./paginas_body/Casa.html','contenido')">
+        <i class="bi bi-house-door-fill me-1"></i> Inicio
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link fw-bold" href="#" onclick="cargarContenido('./paginas_body/Crear.html','contenido')">
+        <i class="bi bi-person-plus-fill me-1"></i> Ingresar Cliente
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  fw-bold" href="#"
+        onclick="cargarContenido('paginas_body/Ver.html', 'contenido', cargarPerfiles);">
+        <i class="bi bi-card-list me-1"></i> Ver Clientes
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  fw-bold" href="#"
+        onclick="cargarContenido('paginas_body/Crear_Pr.html', 'contenido', cargarPerfiles);">
+        <i class="bi bi-card-list me-1"></i> Ingresar Producto
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  fw-bold" href="#" onclick="cargarContenido('paginas_body/ver_pr.html', 'contenido', function () {
+  cargarProductosDesdeLocalStorage('teclado', 'productosContainer');
+  cargarProductosDesdeLocalStorage('mouse', 'productosmContainer');
+  cargarProductosDesdeLocalStorage('auricular', 'productosaContainer');
+})">
+        <i class="bi bi-card-list me-1"></i> Ver Productos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  fw-bold" href="#"
+        onclick="cargarContenido('paginas_body/Facturas.html', 'contenido', cargarPerfiles);">
+        <i class="bi bi-card-list me-1"></i> Generar Facturas
+      </a>
+    </li>
+  </ul>
+  <div id="contenido" class="p-4"></div>
+</div>

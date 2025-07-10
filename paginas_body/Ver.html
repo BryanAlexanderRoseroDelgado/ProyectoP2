@@ -1,41 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="background-color: #f8f9fa;">
+<section class="container transparenteforms py-4">
+  <h2 class="text-center fw-bold mb-4" style="color: var(--color-primario);">Ver Perfil Estudiantil</h2>
 
-  <section class="container py-4">
-    <h2 class="text-center text-primary fw-bold mb-4">Ver Perfil Estudiantil</h2>
+  <div>
+    <h6 class="m-0" style="color: var(--color-primario);">Aquí puede ver los clientes guardados y eliminar los que no necesite.</h6>
+  </div>
 
-    <div class="card shadow">
-      <div class="card-header bg-primary text-white">
-        <h6 class="m-0">Aquí puede ver los perfiles guardados y eliminar los que no necesite.</h6>
-      </div>
-
-      <div class="card-body">
-        <div class="table-responsive mt-3">
-          <table class="table table-bordered table-hover table-striped align-middle">
-            <thead class="table-light">
-              <tr class="text-center">
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Edad</th>
-                <th>Departamento</th>
-                <th>Ubicación (Lat, Lng)</th>
-                <th>Foto</th>
-                <th>Eliminar</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-perfiles">
-              <!-- Las filas se insertarán aquí dinámicamente -->
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="card-body">
+    <div class="table-responsive mt-3">
+      <table class="custom-table align-middle">
+        <thead>
+          <tr class="text-center">
+            <th>Cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Celular</th>
+            <th>Codigo Postal</th>
+            <th>Ubicación (Lat, Lng)</th>
+            <th>Foto</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-perfiles">
+          <!-- Las filas se insertarán aquí dinámicamente -->
+        </tbody>
+      </table>
     </div>
-  </section>
-
-</body>
-</html>
+  </div>
+</section>

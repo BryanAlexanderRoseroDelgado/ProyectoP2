@@ -1,0 +1,33 @@
+<!-- Archivo: pages/productos.html -->
+<div class="container py-4">
+  <h1 class="text-center mb-4 fw-bold">Nuestros Teclados</h1>
+  <div id="productosContainer" class="row g-4"></div>
+</div>
+
+<div class="container py-4">
+  <h1 class="text-center mb-4 fw-bold">Nuestros Mouses</h1>
+  <div id="productosmContainer" class="row g-4"></div>
+</div>
+
+<div class="container py-4">
+  <h1 class="text-center mb-4 fw-bold">Nuestros Auriculares</h1>
+  <div id="productosaContainer" class="row g-4"></div>
+</div>
+
+<!-- Modal reutilizable para ver más detalles -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel" style="color: rgba(0, 255, 13, 0.952);">Producto</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImage" src="" class="img-fluid mb-3 rounded" alt="Imagen del producto">
+        <p id="modalDescription"></p>
+        <ul id="modalDetails" class="mb-3"></ul>
+        <p class="fw-bold">Precio: <span id="modalPrice" style="color: rgba(255, 0, 0, 0.918);"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
