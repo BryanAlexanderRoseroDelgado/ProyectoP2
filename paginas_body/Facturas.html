@@ -1,30 +1,176 @@
-<section class="container transparenteforms py-4">
-  <h2 class="text-center fw-bold mb-4" style="color: var(--color-primario);">Ver Perfil Estudiantil</h2>
+<style>
+  /* Tarjeta del formulario */
+  .card-formulario {
+    background: var(--color-sesion);
+    color: var(--color-sesion-texto);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-borde);
+  }
 
-  <div>
-    <h6 class="m-0" style="color: var(--color-primario);">Aquí puede ver los clientes guardados y eliminar los que no necesite.</h6>
-  </div>
+  /* Campos de entrada */
+  .form-control,
+  .form-select {
+    background: #ffffff34;
+    color: var(--color-sesion-texto);
+    border: 2px solid var(--color-borde);
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease;
+  }
 
-  <div class="card-body">
-    <div class="table-responsive mt-3">
-      <table class="custom-table align-middle">
-        <thead>
-          <tr class="text-center">
-            <th>Cedula</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Edad</th>
-            <th>Celular</th>
-            <th>Codigo Postal</th>
-            <th>Ubicación (Lat, Lng)</th>
-            <th>Foto</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-perfiles">
-          <!-- Las filas se insertarán aquí dinámicamente -->
-        </tbody>
-      </table>
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
+    outline: none;
+  }
+
+  input[disabled],
+  select[disabled],
+  textarea[disabled] {
+    background-color: #e0e0e069;
+    cursor: not-allowed;
+  }
+
+  /* Botones */
+  .btn-custom {
+    background: var(--color-boton);
+    color: var(--color-sesion-texto);
+    border: none;
+    transition: background 0.3s ease;
+  }
+
+  .btn-custom:hover {
+    background: var(--color-hover);
+  }
+
+  .card-title,
+  .form-label,
+  h5 {
+    color: var(--color-sesion-texto);
+  }
+</style>
+
+<!-- INICIO DEL FORMULARIO -->
+<div class="container-fluid page-body-wrapper py-4 px-4">
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-12 grid-margin">
+          <div class="card  transparenteforms">
+            <div class="card-body">
+              <h4 class="card-title text-uppercase">Facturación</h4>
+              <form class="form-sample" autocomplete="off" aria-labelledby="form-title">
+                <p class="card-description"  style="color: var(--color-sesion-texto)">Información del comprador</p>
+
+                <!-- Cliente -->
+                <section class="mb-4">
+                  <h5 id="form-title">Cliente</h5>
+                  <label for="cliente-select" class="form-label">Seleccionar cliente:</label>
+                  <select id="cliente-select" class="form-select" onchange="llenarDatosCliente()">
+                    <option value="">-- Nuevo cliente --</option>
+                  </select>
+                </section>
+
+                <!-- Datos del cliente -->
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="nombre-cliente" class="form-label">Nombre</label>
+                    <input id="nombre-cliente" type="text" class="form-control" placeholder="Ingrese el nombre" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="CI-cliente" class="form-label">Cédula</label>
+                    <input id="CI-cliente" type="text" class="form-control" placeholder="Ej: 0102030405" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="Correo-cliente" class="form-label">Correo</label>
+                    <input id="Correo-cliente" type="email" class="form-control" placeholder="correo@ejemplo.com" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="telefono-cliente" class="form-label">Celular</label>
+                    <input id="telefono-cliente" type="tel" class="form-control" placeholder="0991234567" />
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Productos -->
+                <section class="mb-4">
+                  <h5>Productos</h5>
+                  <div id="productos-container" class="row"></div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- Dirección -->
+                <p class="card-description" style="color: var(--color-sesion-texto)">Dirección</p>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="direccion-cliente" class="form-label">Dirección principal</label>
+                    <input id="direccion-cliente" type="text" class="form-control" placeholder="Calle principal y secundaria" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="postal-cliente" class="form-label">Código postal</label>
+                    <input id="postal-cliente" type="text" class="form-control" placeholder="Ej: 170123" />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="ciudad-cliente" class="form-label">Ciudad</label>
+                    <input id="ciudad-cliente" type="text" class="form-control" placeholder="Ej: Quito" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="pais-cliente" class="form-label">País</label>
+                    <select class="form-select" id="pais-cliente">
+                      <option>Ecuador</option>
+                      <option>Italia</option>
+                      <option>México</option>
+                      <option>Perú</option>
+                    </select>
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Resumen -->
+                <section class="mb-4">
+                  <h5>Resumen</h5>
+                  <p class="fw-bold" style="color: var(--color-sesion-texto)">Subtotal: $<span id="subtotal">0.00</span></p>
+                  <p class="fw-bold" style="color: var(--color-sesion-texto)">IVA (15%): $<span id="iva">0.00</span></p>
+                  <p class="fw-bold text-primary">Total: $<span id="total">0.00</span></p>
+                </section>
+
+                <!-- Botones -->
+                <div class="d-flex gap-2">
+                  <button type="button" onclick="generarFactura()" class="btn btn-custom">
+                    <i class="bi bi-receipt"></i> Generar factura
+                  </button>
+                  <button type="reset" onclick="limpiarFormularioCompleto()" class="btn btn-outline-danger">
+                    <i class="bi bi-x-circle"></i> Limpiar
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- Limpieza de campos -->
+  <script>
+    function limpiarFormularioCompleto() {
+      document.querySelector(".form-sample").reset();
+      document.getElementById("productos-container").innerHTML = "";
+      document.getElementById("subtotal").textContent = "0.00";
+      document.getElementById("iva").textContent = "0.00";
+      document.getElementById("total").textContent = "0.00";
+    }
+  </script>
+</div>

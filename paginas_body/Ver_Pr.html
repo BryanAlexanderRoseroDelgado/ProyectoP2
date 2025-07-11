@@ -1,16 +1,16 @@
 <!-- Archivo: pages/productos.html -->
 <div class="container py-4">
-  <h1 class="text-center mb-4 fw-bold">Nuestros Teclados</h1>
+  <h1 class="text-center mb-4 fw-bold" style="color: var(--color-primario);">Nuestros Teclados</h1>
   <div id="productosContainer" class="row g-4"></div>
 </div>
 
 <div class="container py-4">
-  <h1 class="text-center mb-4 fw-bold">Nuestros Mouses</h1>
+  <h1 class="text-center mb-4 fw-bold" style="color: var(--color-primario);">Nuestros Mouses</h1>
   <div id="productosmContainer" class="row g-4"></div>
 </div>
 
 <div class="container py-4">
-  <h1 class="text-center mb-4 fw-bold">Nuestros Auriculares</h1>
+  <h1 class="text-center mb-4 fw-bold" style="color: var(--color-primario);">Nuestros Auriculares</h1>
   <div id="productosaContainer" class="row g-4"></div>
 </div>
 
@@ -18,14 +18,14 @@
 <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="true">
 
 
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 border-0"
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content rounded-4 border-0 "
          style="background: var(--color-sesion); color: var(--color-sesion-texto);">
       <div class="modal-header border-0">
         <h5 class="modal-title fw-bold" id="productModalLabel"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
         <img id="modalImage" src="" class="img-fluid mb-3 rounded-3" alt="Imagen del producto">
         <p id="modalDescription" class="mb-3"></p>
         <p class="fw-bold fs-5">Precio: 

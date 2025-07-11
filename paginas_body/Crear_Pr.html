@@ -1,33 +1,39 @@
 <section class="container py-5 transparenteforms">
-    <h2 class="text-center fw-bold mb-4">Agregar Producto</h2>
+    <h2 class="text-center fw-bold mb-4" style="color: var(--color-primario);">Agregar Producto</h2>
     <form id="form-producto">
         <div class="mb-3">
-            <label for="nombreProducto" class="form-label">Nombre del producto:</label>
-            <input type="text" id="nombreProducto" class="form-control" required>
+            <label for="nombreProducto" class="form-label" style="color: var(--color-sesion-texto)">Nombre del
+                producto:</label>
+            <input type="text" id="nombreProducto" class="form-control" placeholder="Razer Viper Mini" required>
         </div>
 
         <div class="mb-3">
-            <label for="tipoProducto" class="form-label">Tipo de producto:</label>
-            <select id="tipoProducto" class="form-control" required>
+            <label for="tipoProducto" class="form-label" style="color: var(--color-sesion-texto)">Tipo de
+                producto:</label>
+            <select id="tipoProducto" class="form-control" required style="color: var(--color-sesion-texto)">
+                <option value="teclado">--- Click aqui para escojer su tipo de producto ---</option>
                 <option value="teclado">Teclado</option>
                 <option value="mouse">Mouse</option>
                 <option value="auricular">Auriculares</option>
+
             </select>
 
         </div>
 
         <div class="mb-3">
-            <label for="precioProducto" class="form-label">Precio:</label>
-            <input type="number" id="precioProducto" class="form-control" required>
+            <label for="precioProducto" class="form-label" style="color: var(--color-sesion-texto)">Precio:</label>
+            <input type="number" id="precioProducto" class="form-control" placeholder="100.00" required>
         </div>
 
         <div class="mb-3">
-            <label for="descripcionProducto" class="form-label">Descripción:</label>
-            <textarea id="descripcionProducto" class="form-control" required></textarea>
+            <label for="descripcionProducto" class="form-label"
+                style="color: var(--color-sesion-texto)">Descripción:</label>
+            <textarea id="descripcionProducto" class="form-control" required placeholder="Raton ergonomico ideal para jugadores"></textarea>
         </div>
 
         <div class="mb-3">
-            <label for="imagenProducto" class="form-label">Foto del producto:</label>
+            <label for="imagenProducto" class="form-label" style="color: var(--color-sesion-texto)">Foto del
+                producto:</label>
             <input type="file" id="imagenProducto" class="form-control" accept="image/*" required>
         </div>
 

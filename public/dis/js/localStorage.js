@@ -31,25 +31,6 @@ function guardarDatosUsuario() {
   alert("¡Perfil guardado correctamente!");
 }
 
-function openProductModal(producto) {
-  const modalElement = document.getElementById("productModal");
-
-  // 🔴 Elimina cualquier backdrop vieja (muy importante)
-  document.querySelectorAll(".modal-backdrop").forEach((el) => el.remove());
-  document.body.classList.remove("modal-open");
-  document.body.style = "";
-
-  // Rellenar el contenido
-  document.getElementById("modalImage").src = producto.image;
-  document.getElementById("productModalLabel").textContent = producto.name;
-  document.getElementById("modalDescription").textContent =
-    producto.description;
-  document.getElementById("modalPrice").textContent = "$" + producto.price;
-
-  // Mostrar el modal solo si aún no está visible
-  const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-  modalInstance.show();
-}
 
 function cargarPerfiles() {
   const tabla = document.getElementById("tabla-perfiles");
@@ -158,6 +139,12 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
       <h5 class="card-title fw-bold mb-2 text-center">${producto.name}</h5>
       <p class="fw-semibold text-center mb-3">Precio: $${producto.price}</p>
       <div class="d-grid mt-auto">
+       <button class="btn btn-danger btn-sm eliminar-producto"
+        data-type="${producto.type}" 
+        data-name="${producto.name}">
+  Eliminar
+</button>
+
         <button class="btn btn-sm ver-mas"
                 style="background: var(--color-boton); color: var(--color-texto); border: none;"
                 onmouseover="this.style.background='var(--color-hover)'"
@@ -165,6 +152,8 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
                 data-product='${JSON.stringify(producto)}'>
           Ver más
         </button>
+   
+
       </div>
     </div>
   </div>
@@ -179,7 +168,66 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
       openProductModal(producto);
     });
   });
+
+  document.querySelectorAll(".eliminar-producto").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const tipo = btn.getAttribute("data-type");
+    const nombre = btn.getAttribute("data-name");
+    eliminarProducto(tipo, nombre);
+  });
+});
+
 }
+
+
+
+function openProductModal(producto) {
+  try {
+    const modalElement = document.getElementById("productModal");
+
+    // Limpieza previa
+    document.querySelectorAll(".modal-backdrop").forEach((el) => el.remove());
+    document.body.classList.remove("modal-open");
+    document.body.style = "";
+
+    // Verifica que los datos existan
+    if (!producto || !producto.name || !producto.image || !producto.description) {
+      alert("Producto inválido. No se puede mostrar.");
+      return;
+    }
+
+    // Asignación segura
+    document.getElementById("modalImage").src = producto.image;
+    document.getElementById("productModalLabel").textContent = producto.name;
+    document.getElementById("modalDescription").textContent = producto.description;
+    document.getElementById("modalPrice").textContent = "$" + producto.price;
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+    modal.show();
+  } catch (err) {
+    console.error("Error al abrir el modal:", err);
+    alert("No se pudo abrir el modal.");
+  }
+}
+
+
+
+function eliminarProducto(tipo, nombre) {
+  if (!confirm("¿Estás seguro de que deseas eliminar este producto?")) return;
+
+  const key = "productos_" + tipo;
+  let productos = JSON.parse(localStorage.getItem(key)) || [];
+
+  // Filtrar todos los que no coincidan con el nombre (eliminamos el que sí coincide)
+  const nuevosProductos = productos.filter(p => p.name !== nombre);
+
+  localStorage.setItem(key, JSON.stringify(nuevosProductos));
+
+  // Volver a cargar los productos
+  cargarProductosDesdeLocalStorage(tipo, obtenerContainerIdPorTipo(tipo));
+}
+
+
 
 // Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", cargarPerfiles);

@@ -1,130 +1,115 @@
 <section class="container py-5 transparenteforms">
-      <h2 class="text-center fw-bold mb-4" style="color: var(--color-primario);">Agregar Clientes</h2>
+  <h2 class="text-center fw-bold mb-4" style="color: var(--color-primario);">Agregar Clientes</h2>
 
-    <div class="form-wrapper">
-        <ul class="steps">
-            <li class="is-active">Paso 1</li>
-            <li>Paso 2</li>
-            <li>Paso 3</li>
-            <li>Paso 4</li>
-        </ul>
-        <form id="profile-form">
+  <div class="form-wrapper">
+    <ul class="steps">
+      <li class="is-active">Paso 1</li>
+      <li>Paso 2</li>
+      <li>Paso 3</li>
+      <li>Paso 4</li>
+    </ul>
 
-            <!-- Información personal -->
-            <fieldset class="section is-active">
-                <h3>Datos Personales</h3>
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Numero de cedula:</label>
-                    <input type="number" name="cedula" class="form-control" id="cedula" required>
-                </div>
+    <form id="profile-form">
+      <!-- Paso 1: Datos personales -->
+      <fieldset class="section is-active">
+        <h3>Datos Personales</h3>
 
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombres Completos:</label>
-                    <input type="text" name="nombre" class="form-control" id="nombre" required>
-                </div>
+        <div class="mb-3">
+          <label for="cedula" class="form-label">Número de cédula:</label>
+          <input type="number" name="cedula" class="form-control" id="cedula" placeholder="Ej: 0102030405" required>
+        </div>
 
-                <div class="mb-3">
-                    <label for="apellido" class="form-label">Apellidos Completos:</label>
-                    <input type="text" name="apellido" class="form-control" id="apellido" required>
-                </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombres Completos:</label>
+          <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ej: Juan Carlos" required>
+        </div>
 
-                <div class="mb-3">
-                    <label for="fechanacimiento" class="form-label">Fecha de nacimiento:</label>
-                    <input type="date" id="fechanacimiento" name="fechanacimiento" min="1960-05-01" max="2007-05-01"
-                        class="form-control" required>
-                </div>
-                <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
+        <div class="mb-3">
+          <label for="apellido" class="form-label">Apellidos Completos:</label>
+          <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ej: Pérez Gómez" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="fechanacimiento" class="form-label">Fecha de nacimiento:</label>
+          <input type="date" id="fechanacimiento" name="fechanacimiento" class="form-control" min="1960-05-01" max="2007-05-01" required>
+        </div>
+
+        <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
                 bottom: 20px;
                     ">Siguiente</button>
+      </fieldset>
 
+      <!-- Paso 2: Contacto -->
+      <fieldset class="section">
+        <h3>Datos de contacto</h3>
 
-            </fieldset>
+        <div class="mb-3">
+          <label for="celular">Ingrese su número de celular:</label>
+          <input type="number" name="celular" class="form-control" id="celular" placeholder="Ej: 0991234567" required>
+        </div>
 
+        <div class="mb-3">
+          <label for="postal" class="form-label">Ingrese su código postal:</label>
+          <input type="number" name="postal" class="form-control" id="postal" placeholder="Ej: 170123" required>
+        </div>
 
-            <!-- Departamento -->
-            <fieldset class="section">
-                <h3>Datos de contacto</h3>
-                <div class="mb-3">
-                    <label for="Departamento">Ingrese su numero de celular:</label>
-                    <input type="number" name="celular" class="form-control" id="celular" required>
-                </div>
-                <div class="mb-3">
-                    <label for="fechanacimiento" class="form-label">Ingrese su codigo postal:</label>
-                    <input type="number" name="postal" class="form-control" id="postal" required>
-                </div>
-
-
-                <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
+        <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
                 bottom: 20px;
                     ">Siguiente</button>
+      </fieldset>
 
+      <!-- Paso 3: Fotografía -->
+      <fieldset class="section">
+        <h3>Fotografía</h3>
+        <div class="row g-3">
+          <div class="col-md-6 text-center">
+            <video id="video" width="100%" height="auto" style="border: 2px solid #6c757d; border-radius: 10px;" controls autoplay></video>
+            <div class="mt-2 d-flex justify-content-center gap-2 flex-wrap">
+              <button type="button" class="btn btn-outline-primary" onclick="IniciarCamara()">Iniciar Cámara</button>
+              <button type="button" class="btn btn-outline-success" onclick="TomarFoto()">Tomar Foto</button>
+              <button type="button" class="btn btn-outline-danger" onclick="PararCamara()">Detener Cámara</button>
+            </div>
+          </div>
 
-            </fieldset>
+          <div class="col-md-6 text-center">
+            <canvas id="foto_resultado" width="500" height="390" style="border: 2px solid #6c757d; border-radius: 10px;"></canvas>
+          </div>
+        </div>
 
-
-            <!-- Cámara -->
-            <fieldset class="section">
-                <h3>Fotografía</h3>
-                <div class="row g-3">
-                    <div class="col-md-6 text-center">
-                        <video id="video" width="100%" height="auto"
-                            style="border: 2px solid #6c757d; border-radius: 10px;" controls autoplay></video>
-                        <div class="mt-2 d-flex justify-content-center gap-2 flex-wrap">
-                            <button type="button" class="btn btn-outline-primary" onclick="IniciarCamara()">Iniciar
-                                Cámara</button>
-                            <button type="button" class="btn btn-outline-success" onclick="TomarFoto()">Tomar
-                                Foto</button>
-                            <button type="button" class="btn btn-outline-danger" onclick="PararCamara()">Detener
-                                Cámara</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 text-center">
-                        <canvas id="foto_resultado" width="500" height="390"
-                            style="border: 2px solid #6c757d; border-radius: 10px;"></canvas>
-                    </div>
-                </div>
-                <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
+        <button type="button" class="btn-next" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
                 bottom: 20px;
-                    ">Siguiente</button>
+                    " onclick="saltarPaso(this)">Siguiente</button>
+      </fieldset>
 
+      <!-- Paso 4: Ubicación -->
+      <fieldset class="section">
+        <h3>Ubicación</h3>
+        <p>Permita que la página registre su ubicación de envío.</p>
+        <button type="button" class="btn btn-outline-primary mb-3" onclick="localizar()">Acceder a ubicación</button>
 
-            </fieldset>
+        <div class="mb-2">
+          <label for="latitud">Latitud:</label>
+          <input type="text" name="latitud" value="0" id="latitud" class="form-control" placeholder="Latitud automática">
+        </div>
 
+        <div class="mb-2">
+          <label for="longitud">Longitud:</label>
+          <input type="text" name="longitud" value="0" id="longitud" class="form-control" placeholder="Longitud automática">
+        </div>
 
+        <div id="map" class="mt-3" style="height: 200px;"></div>
 
-            <!-- Ubicación -->
-            <fieldset class="section">
-                <h3>Ubicación</h3>
-                <p>Permita que la página registre su ubicación de envio.</p>
-                <button type="button" class="btn btn-outline-primary mb-3" onclick="localizar()">Acceder a
-                    ubicación</button>
-
-                <div class="mb-2">
-                    <label for="latitud">Latitud:</label>
-                    <input type="text" name="latitud" value="0" id="latitud" class="form-control">
-                </div>
-
-                <div class="mb-2">
-                    <label for="longitud">Longitud:</label>
-                    <input type="text" name="longitud" value="0" id="longitud" class="form-control">
-                </div>
-
-                <div id="map" class="mt-3" style="height: 200px;"></div>
-
-
-                <!-- Botón de envío -->
-                <div class="text-end">
-                    <button type="button" class="btn-next" onclick="reiniciarPasos(this)" style="position: relative;
+                     <div class="text-end">
+                    <button type="button" class="btn btn-outline-danger" onclick="reiniciarPasos(this)" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
@@ -141,10 +126,9 @@
 
 
                 </div>
-            </fieldset>
-        </form>
-    </div>
-
+      </fieldset>
+    </form>
+  </div>
 </section>
 
 
@@ -190,3 +174,5 @@
 
 
 </script>
+
+
