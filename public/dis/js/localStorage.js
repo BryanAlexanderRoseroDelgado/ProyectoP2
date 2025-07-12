@@ -28,9 +28,10 @@ function guardarDatosUsuario() {
     JSON.stringify(perfil)
   );
 
-  alert("¡Perfil guardado correctamente!");
-}
+  agregarNotificacion(`Se ha creado el perfil de ${nombre} ${apellido}`);
 
+  mostrarToast("¡Perfil creado exitosamente!");
+}
 
 function cargarPerfiles() {
   const tabla = document.getElementById("tabla-perfiles");
@@ -77,10 +78,11 @@ function cargarPerfiles() {
 }
 
 function eliminarUsuario(clave) {
-  if (confirm("¿Estás seguro de que querés eliminar este perfil?")) {
-    localStorage.removeItem(clave);
-    cargarPerfiles(); // Recargar lista
-  }
+  localStorage.removeItem(clave);
+
+  agregarNotificacion(`Se ha Borrado el usuario ${clave}`);
+
+  mostrarToast("<p style='color: red;'>¡Perfil Borrado exitosamente!</p>");
 }
 
 function guardarProducto() {
@@ -114,7 +116,9 @@ function guardarProducto() {
     productosGuardados.push(producto);
     localStorage.setItem(key, JSON.stringify(productosGuardados));
 
-    alert("¡Producto guardado correctamente!");
+    agregarNotificacion(`Se ha creado el producto ${nombre} exitosamente!`);
+
+    mostrarToast("Preducto Creado exitosamente!");
     document.getElementById("form-producto").reset();
   };
 
@@ -170,16 +174,13 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
   });
 
   document.querySelectorAll(".eliminar-producto").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const tipo = btn.getAttribute("data-type");
-    const nombre = btn.getAttribute("data-name");
-    eliminarProducto(tipo, nombre);
+    btn.addEventListener("click", () => {
+      const tipo = btn.getAttribute("data-type");
+      const nombre = btn.getAttribute("data-name");
+      eliminarProducto(tipo, nombre);
+    });
   });
-});
-
 }
-
-
 
 function openProductModal(producto) {
   try {
@@ -191,7 +192,12 @@ function openProductModal(producto) {
     document.body.style = "";
 
     // Verifica que los datos existan
-    if (!producto || !producto.name || !producto.image || !producto.description) {
+    if (
+      !producto ||
+      !producto.name ||
+      !producto.image ||
+      !producto.description
+    ) {
       alert("Producto inválido. No se puede mostrar.");
       return;
     }
@@ -199,7 +205,8 @@ function openProductModal(producto) {
     // Asignación segura
     document.getElementById("modalImage").src = producto.image;
     document.getElementById("productModalLabel").textContent = producto.name;
-    document.getElementById("modalDescription").textContent = producto.description;
+    document.getElementById("modalDescription").textContent =
+      producto.description;
     document.getElementById("modalPrice").textContent = "$" + producto.price;
 
     const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
@@ -210,24 +217,22 @@ function openProductModal(producto) {
   }
 }
 
-
-
 function eliminarProducto(tipo, nombre) {
-  if (!confirm("¿Estás seguro de que deseas eliminar este producto?")) return;
-
   const key = "productos_" + tipo;
   let productos = JSON.parse(localStorage.getItem(key)) || [];
 
   // Filtrar todos los que no coincidan con el nombre (eliminamos el que sí coincide)
-  const nuevosProductos = productos.filter(p => p.name !== nombre);
+  const nuevosProductos = productos.filter((p) => p.name !== nombre);
 
   localStorage.setItem(key, JSON.stringify(nuevosProductos));
+
+  agregarNotificacion(`Se ha borrado el producto ${nombre} exitosamente!`);
+
+  mostrarToast("<p style='color: red;'>!Producto Borrado exitosamente!</p>");
 
   // Volver a cargar los productos
   cargarProductosDesdeLocalStorage(tipo, obtenerContainerIdPorTipo(tipo));
 }
-
-
 
 // Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", cargarPerfiles);
