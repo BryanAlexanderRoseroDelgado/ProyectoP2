@@ -76,25 +76,123 @@
                 <!-- Datos del cliente -->
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label for="nombre-cliente" class="form-label">Nombre</label>
-                    <input id="nombre-cliente" type="text" class="form-control" placeholder="Ingrese el nombre" />
+                    <label for="cedula-cliente" class="form-label">Número de cédula</label>
+                    <input id="cedula-cliente" type="number" class="form-control" placeholder="Ej: 0102030405" />
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label for="CI-cliente" class="form-label">Cédula</label>
-                    <input id="CI-cliente" type="text" class="form-control" placeholder="Ej: 0102030405" />
+                    <label for="nombre-cliente" class="form-label">Nombres Completos</label>
+                    <input id="nombre-cliente" type="text" class="form-control" placeholder="Ej: Juan Carlos" />
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label for="Correo-cliente" class="form-label">Correo</label>
-                    <input id="Correo-cliente" type="email" class="form-control" placeholder="correo@ejemplo.com" />
+                    <label for="apellido-cliente" class="form-label">Apellidos Completos</label>
+                    <input id="apellido-cliente" type="text" class="form-control" placeholder="Ej: Pérez Gómez" />
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label for="telefono-cliente" class="form-label">Celular</label>
-                    <input id="telefono-cliente" type="tel" class="form-control" placeholder="0991234567" />
+                    <label for="fechanacimiento-cliente" class="form-label">Fecha de nacimiento</label>
+                    <input id="fechanacimiento-cliente" type="date" class="form-control" min="1960-05-01" max="2007-05-01" />
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="telefono-cliente" class="form-label">Número de celular</label>
+                    <input id="telefono-cliente" type="tel" class="form-control" placeholder="Ej: 0991234567" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="Correo-cliente" class="form-label">Correo electrónico</label>
+                    <input id="Correo-cliente" type="email" class="form-control" placeholder="correo@ejemplo.com" />
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Dirección -->
+                <section class="mb-4">
+                  <h5>Dirección del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Información de dirección y ubicación</p>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="direccion-cliente" class="form-label">Dirección principal</label>
+                      <input id="direccion-cliente" type="text" class="form-control" placeholder="Calle principal y secundaria" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="postal-cliente" class="form-label">Código postal</label>
+                      <input id="postal-cliente" type="text" class="form-control" placeholder="Ej: 170123" />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="ciudad-cliente" class="form-label">Ciudad</label>
+                      <input id="ciudad-cliente" type="text" class="form-control" placeholder="Ej: Quito" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="pais-cliente" class="form-label">País</label>
+                      <select class="form-select" id="pais-cliente">
+                        <option>Ecuador</option>
+                        <option>Italia</option>
+                        <option>México</option>
+                        <option>Perú</option>
+                      </select>
+                    </div>
+                  </div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- Fotografía -->
+                <section class="mb-4">
+                  <h5>Fotografía del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Captura una fotografía del cliente</p>
+                  <div class="row g-3">
+                    <div class="col-12 text-center">
+                      <!-- Canvas for camera display and photo capture -->
+                      <div class="d-flex flex-column align-items-center">
+                        <button type="button" class="btn btn-outline-primary mb-3" onclick="abrirCamaraCliente()">
+                          <i class="bi bi-camera"></i> Abrir cámara
+                        </button>
+                        <video id="video_cliente" width="300" height="200" style="display: none; border: 2px solid #ccc; border-radius: 8px;"></video>
+                        <button type="button" id="capturar_cliente" class="btn btn-success mt-2" onclick="capturarFotoCliente()" style="display: none;">
+                          <i class="bi bi-camera-fill"></i> Capturar foto
+                        </button>
+                        <canvas id="foto_resultado_cliente" width="300" height="200" style="display: none; border: 2px solid #28a745; border-radius: 8px; margin-top: 10px;"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- Ubicación -->
+                <section class="mb-4">
+                  <h5>Ubicación del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Registre la ubicación de envío del cliente</p>
+                  <div class="row">
+                    <div class="col-12 mb-3">
+                      <button type="button" class="btn btn-outline-primary" onclick="localizarCliente()">
+                        <i class="bi bi-geo-alt"></i> Acceder a ubicación
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="latitud-cliente" class="form-label">Latitud</label>
+                      <input id="latitud-cliente" type="text" class="form-control" placeholder="Latitud automática" value="0" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="longitud-cliente" class="form-label">Longitud</label>
+                      <input id="longitud-cliente" type="text" class="form-control" placeholder="Longitud automática" value="0" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div id="map_cliente" style="height: 200px; border-radius: 8px; margin-top: 10px;"></div>
+                    </div>
+                  </div>
+                </section>
 
                 <hr class="my-4">
 
@@ -103,37 +201,6 @@
                   <h5>Productos</h5>
                   <div id="productos-container" class="row"></div>
                 </section>
-
-                <hr class="my-4">
-
-                <!-- Dirección -->
-                <p class="card-description" style="color: var(--color-sesion-texto)">Dirección</p>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="direccion-cliente" class="form-label">Dirección principal</label>
-                    <input id="direccion-cliente" type="text" class="form-control" placeholder="Calle principal y secundaria" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="postal-cliente" class="form-label">Código postal</label>
-                    <input id="postal-cliente" type="text" class="form-control" placeholder="Ej: 170123" />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="ciudad-cliente" class="form-label">Ciudad</label>
-                    <input id="ciudad-cliente" type="text" class="form-control" placeholder="Ej: Quito" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="pais-cliente" class="form-label">País</label>
-                    <select class="form-select" id="pais-cliente">
-                      <option>Ecuador</option>
-                      <option>Italia</option>
-                      <option>México</option>
-                      <option>Perú</option>
-                    </select>
-                  </div>
-                </div>
 
                 <hr class="my-4">
 
@@ -171,6 +238,101 @@
       document.getElementById("subtotal").textContent = "0.00";
       document.getElementById("iva").textContent = "0.00";
       document.getElementById("total").textContent = "0.00";
+      // Limpiar campos adicionales
+      document.getElementById("foto_resultado_cliente").style.display = "none";
+      document.getElementById("video_cliente").style.display = "none";
+      document.getElementById("capturar_cliente").style.display = "none";
+      document.getElementById("latitud-cliente").value = "0";
+      document.getElementById("longitud-cliente").value = "0";
+    }
+  </script>
+
+  <!-- Leaflet CSS and JS for maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+  <!-- Camera and Location functionality -->
+  <script>
+    let stream_cliente = null;
+    let map_cliente = null;
+
+    // Camera functions
+    function abrirCamaraCliente() {
+      const video = document.getElementById("video_cliente");
+      const captureBtn = document.getElementById("capturar_cliente");
+      
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          stream_cliente = stream;
+          video.srcObject = stream;
+          video.style.display = "block";
+          captureBtn.style.display = "block";
+          video.play();
+        })
+        .catch(function(error) {
+          console.error("Error accessing camera:", error);
+          alert("No se pudo acceder a la cámara. Verifique los permisos.");
+        });
+    }
+
+    function capturarFotoCliente() {
+      const video = document.getElementById("video_cliente");
+      const canvas = document.getElementById("foto_resultado_cliente");
+      const context = canvas.getContext("2d");
+      
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      
+      // Hide video and capture button, show canvas
+      video.style.display = "none";
+      document.getElementById("capturar_cliente").style.display = "none";
+      canvas.style.display = "block";
+      
+      // Stop camera stream
+      if (stream_cliente) {
+        stream_cliente.getTracks().forEach(track => track.stop());
+        stream_cliente = null;
+      }
+    }
+
+    // Location functions
+    function localizarCliente() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            
+            document.getElementById("latitud-cliente").value = lat;
+            document.getElementById("longitud-cliente").value = lng;
+            
+            // Initialize map if not already initialized
+            if (!map_cliente) {
+              map_cliente = L.map('map_cliente').setView([lat, lng], 13);
+              L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              }).addTo(map_cliente);
+            } else {
+              map_cliente.setView([lat, lng], 13);
+            }
+            
+            // Add marker
+            L.marker([lat, lng]).addTo(map_cliente)
+              .bindPopup('Ubicación del cliente')
+              .openPopup();
+          },
+          function(error) {
+            console.error("Error getting location:", error);
+            alert("No se pudo obtener la ubicación. Verifique los permisos de ubicación.");
+          }
+        );
+      } else {
+        alert("La geolocalización no es compatible con este navegador.");
+      }
     }
   </script>
 </div>
