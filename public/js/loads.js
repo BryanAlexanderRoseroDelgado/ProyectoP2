@@ -148,15 +148,36 @@ fetch("paginas_principal/header.html")
   .then((res) => res.text())
   .then((data) => (document.getElementById("header").innerHTML = data));
 
+function aplicarPreferenciasUsuario() {
+  const temaGuardado = localStorage.getItem("tema") || "claro";
+  const selectTema = document.getElementById("tema-seleccion");
+
+  if (temaGuardado === "oscuro") {
+    document.body.classList.add("modo-oscuro");
+    if (selectTema) selectTema.value = "tema-oscuro";
+  } else {
+    document.body.classList.remove("modo-oscuro");
+    if (selectTema) selectTema.value = "tema-claro";
+  }
+  const notiGuardado = localStorage.getItem("notificaciones") || "activadas";
+  const selectNoti = document.getElementById("notificaciones-seleccion");
+  if (selectNoti) selectNoti.value = notiGuardado;
+}
+
+
 fetch("paginas_principal/sidebar.html")
   .then((res) => res.text())
-  .then((data) => (document.getElementById("sidebar").innerHTML = data));
+  .then((data) => {
+    document.getElementById("sidebar").innerHTML = data;
+    aplicarPreferenciasUsuario(); 
+  });
 
 function cargarPaginas(url_paginas) {
   fetch(`paginas_body/${url_paginas}.html`)
     .then((res) => res.text())
     .then((data) => {
       const contenedor = document.getElementById("body");
+
       if (!contenedor) {
         console.error("No se encontró el contenedor con id 'body'");
         return;

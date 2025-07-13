@@ -138,9 +138,10 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
 
     card.innerHTML = `
   <div class="card h-100 shadow-lg rounded-4 border-0"
-       style="background: var(--color-sesion); color: var(--color-sesion-texto);">
+       style="background: var(--color-primeriocard); color: var(--color-sesion-texto);">
     <img src="${producto.image}" class="card-img-top rounded-top-4" 
-         alt="${producto.name}" style="height: 200px; object-fit: cover;">
+         alt="${producto.name}" style="height: 200px; object-fit: cover;
+         border: 3px solid var(--color-lineas2);">
     <div class="card-body d-flex flex-column">
       <h5 class="card-title fw-bold mb-2 text-center">${producto.name}</h5>
       <p class="fw-semibold text-center mb-3">Precio: $${producto.price}</p>
@@ -152,9 +153,9 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
 </button>
 
         <button class="btn btn-sm ver-mas"
-                style="background: var(--color-boton); color: var(--color-texto); border: none;"
+                style="background: var(--color-fondocont2); color: var(--color-texto); border: none;"
                 onmouseover="this.style.background='var(--color-hover)'"
-                onmouseout="this.style.background='var(--color-boton)'"
+                onmouseout="this.style.background='var(--color-fondocont2)'"
                 data-product='${JSON.stringify(producto)}'>
           Ver más
         </button>
