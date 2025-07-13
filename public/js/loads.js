@@ -1,6 +1,6 @@
-// Keep track of loaded external scripts to prevent multiple DOM additions
+/* // Keep track of loaded external scripts to prevent multiple DOM additions
 const loadedScripts = new Set();
-const scriptElements = new Map(); // Track script elements for potential cleanup
+const scriptElements = new Map(); 
 
 function cargarContenido(pagina, id) {
     fetch(`${pagina}`)
@@ -128,4 +128,85 @@ function login() {
     } else {
         document.getElementById("login-error").style.display = "block";
     }
+}
+
+
+
+ */
+
+//cargando el archivo header
+
+fetch("paginas_principal/body.html")
+  .then((res) => res.text())
+  .then((data) => (document.getElementById("navegacion").innerHTML = data));
+
+fetch("paginas_principal/footer.html")
+  .then((res) => res.text())
+  .then((data) => (document.getElementById("footer").innerHTML = data));
+
+fetch("paginas_principal/header.html")
+  .then((res) => res.text())
+  .then((data) => (document.getElementById("header").innerHTML = data));
+
+fetch("paginas_principal/sidebar.html")
+  .then((res) => res.text())
+  .then((data) => (document.getElementById("sidebar").innerHTML = data));
+
+function cargarPaginas(url_paginas) {
+  fetch(`paginas_body/${url_paginas}.html`)
+    .then((res) => res.text())
+    .then((data) => {
+      const contenedor = document.getElementById("body");
+      if (!contenedor) {
+        console.error("No se encontró el contenedor con id 'body'");
+        return;
+      }
+
+      contenedor.innerHTML = data;
+
+      // Cargar scripts globales
+      const scriptsGlobales = [
+        "camara.js",
+        "estilos.js",
+        "localStorage.js",
+        "ubicacion.js",
+      ];
+
+      scriptsGlobales.forEach((scriptName) => {
+        if (
+          !document.querySelector(`script[src="./public/js/${scriptName}"]`)
+        ) {
+          const s = document.createElement("script");
+          s.src = `./public/js/${scriptName}`;
+          document.body.appendChild(s);
+        }
+      });
+
+      // También ejecutar scripts inline si existieran
+      const scriptsInline = contenedor.querySelectorAll("script");
+      scriptsInline.forEach((oldScript) => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+    })
+    .catch((err) => console.error("Error cargando la página:", err));
+}
+
+window.onload = () => cargarPaginas("Casa");
+
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+
+  if (user === "admin" && pass === "admin") {
+    // Redirección al index.html
+    window.location.href = "./index.html";
+  } else {
+    document.getElementById("login-error").style.display = "block";
+  }
 }
