@@ -233,7 +233,7 @@ function eliminarProducto(tipo, nombre) {
   mostrarToast("<p style='color: red;'>!Producto Borrado exitosamente!</p>");
 
   // Reload the specific product container
-  cargarProductosDesdeLocalStorage(tipo, tipo + '-container');
+  cargarProductosDesdeLocalStorage(tipo, tipo + '_tabla');
 }
 
 // Note: cargarPerfiles() is now called directly in the HTML pages that need it

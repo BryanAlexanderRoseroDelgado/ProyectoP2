@@ -1,17 +1,17 @@
 <!-- Archivo: pages/productos.html -->
 <div class="container py-4">
   <h1 class="text-center mb-4 fw-bold" style="color: var(--color-primario);">Nuestros Teclados</h1>
-  <div id="teclado-container" class="row g-4"></div>
+  <div id="teclado_tabla" class="row g-4"></div>
 </div>
 
 <div class="container py-4">
   <h1 class="text-center mb-4 fw-bold" style="color: var(--color-primario);">Nuestros Mouses</h1>
-  <div id="mouse-container" class="row g-4"></div>
+  <div id="mouse_tabla" class="row g-4"></div>
 </div>
 
 <div class="container py-4">
   <h1 class="text-center mb-4 fw-bold" style="color: var(--color-primario);">Nuestros Auriculares</h1>
-  <div id="auricular-container" class="row g-4"></div>
+  <div id="auricular_tabla" class="row g-4"></div>
 </div>
 
 <!-- Modal reutilizable para ver más detalles -->
@@ -40,8 +40,8 @@
 <script>
   // Ejecutar cargarProductosDesdeLocalStorage cuando se carga la página
   if (typeof cargarProductosDesdeLocalStorage === 'function') {
-    cargarProductosDesdeLocalStorage('teclado', 'teclado-container');
-    cargarProductosDesdeLocalStorage('mouse', 'mouse-container');
-    cargarProductosDesdeLocalStorage('auricular', 'auricular-container');
+    cargarProductosDesdeLocalStorage('teclado', 'teclado_tabla');
+    cargarProductosDesdeLocalStorage('mouse', 'mouse_tabla');
+    cargarProductosDesdeLocalStorage('auricular', 'auricular_tabla');
   }
 </script>
