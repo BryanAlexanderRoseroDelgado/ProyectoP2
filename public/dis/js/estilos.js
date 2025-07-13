@@ -64,43 +64,58 @@ function reiniciarPasos() {
 
 
 
+function mostrarToast(mensaje, tipo = 'success') {
+  const container = document.getElementById("toastContainer");
 
+  const toast = document.createElement("div");
+  toast.className = `toast align-items-center text-bg-${tipo} border-0 show`;
+  toast.setAttribute("role", "alert");
+  toast.setAttribute("aria-live", "assertive");
+  toast.setAttribute("aria-atomic", "true");
 
-function seleccionCarrera(arg) {
-  console.log(arg.value);
-  const respuesta = document.getElementById("respuestaSelect");
-  const val = arg.value;
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${mensaje}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+    </div>
+  `;
 
-  switch (val) {
-    case "Departamento de Ciencias de la Energía y Mecánica":
-      respuesta.innerHTML = `<img src="https://www.unitec.mx/wp-content/uploads/2020/02/ingenieria-en-sistemas-computacionales.jpg" alt="Ingeniería en Sistemas Computacionales" width="300">`;
-      break;
-    case "Departamento de Ciencias de la Computación":
-      respuesta.innerHTML = `<img src="https://isil.pe/blog/wp-content/uploads/2021/03/ingenieria-sistemas-informacion.jpg" alt="Ingeniería en Sistemas de Información" width="300">`;
-      break;
-    case "Departamento de Eléctrica, Electronica y Telecomunicaciones":
-      respuesta.innerHTML = `<img src="https://www.galileo.edu/fisicc/files/2020/01/ingenieria-telecomunicaciones.jpg" alt="Ingeniería en Telecomunicaciones" width="300">`;
-      break;
-    case "Departamento de Ciencias de la Vida y de la Agricultura":
-      respuesta.innerHTML = `<img src="https://fiqa.epn.edu.ec/images/ingenieria-agroindustrial.jpg" alt="Ingeniería Agroindustrial" width="300">`;
-      break;
-    case "Departamento de Ciencias Administrativas, Económicas y de Comercio":
-      respuesta.innerHTML = `<img src="https://blog.up.edu.mx/hubfs/economia-contabilidad.jpg" alt="Economía y Contabilidad" width="300">`;
-      break;
-    case "Departamento de Ciencias de la Tierra y Construcción":
-      respuesta.innerHTML = `<img src="https://facultadingenieria.uct.cl/wp-content/uploads/2020/03/ingenieria-civil-geologica.jpg" alt="Ingeniería Civil o Geología" width="300">`;
-      break;
-    case "Departamento de Ciencias Médicas":
-      respuesta.innerHTML = `<img src="https://blog.uvm.mx/hubfs/enfermeria-vs-medicina.jpg" alt="Medicina o Enfermería" width="300">`;
-      break;
-    case "Departamento de Ciencias Humanas y Sociales":
-      respuesta.innerHTML = `<img src="https://psicologiaymente.com/imgs/psicologia-social.jpg" alt="Psicología, Sociología o Comunicación" width="300">`;
-      break;
-    case "Departamento de Seguridad y Defensa":
-      respuesta.innerHTML = `<img src="https://www.institucionfundetec.com/wp-content/uploads/2021/04/seguridad-integral.jpg" alt="Seguridad Integral o Gestión del Riesgo" width="300">`;
-      break;
-    default:
-      respuesta.innerHTML = "Seleccione una carrera";
-      respuesta.style.color = "black";
-  }
+  container.appendChild(toast);
+
+  const bsToast = new bootstrap.Toast(toast, { delay: 4000 });
+  bsToast.show();
+
+  toast.addEventListener("hidden.bs.toast", () => toast.remove());
 }
+
+
+let cantidadNotificaciones = 0;
+
+function agregarNotificacion(texto) {
+  const notiList = document.getElementById("notiList");
+  const notiBadge = document.getElementById("notiBadge");
+
+  // Crear nuevo ítem
+  const item = document.createElement("li");
+  const fecha = new Date().toLocaleTimeString();
+
+  item.innerHTML = `<div>${texto}<br><small>${fecha}</small></div>`;
+
+  // Insertar al inicio
+  notiList.insertBefore(item, notiList.children[1]); // después del header
+
+  // Actualizar contador
+  cantidadNotificaciones++;
+  notiBadge.textContent = cantidadNotificaciones;
+  notiBadge.style.display = "inline-block";
+}
+
+// Cuando se abre la campana, limpiar badge
+document.getElementById("notiButton").addEventListener("click", () => {
+  cantidadNotificaciones = 0;
+  document.getElementById("notiBadge").style.display = "none";
+});
+
+
+
+document.querySelector('#contenido').classList.add('fade-in');

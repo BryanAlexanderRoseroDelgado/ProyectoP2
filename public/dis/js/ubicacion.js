@@ -10,7 +10,12 @@ function localizar() {
                 document.getElementById("latitud").value = latitude;
                 document.getElementById("longitud").value = longitude;
 
-                var map = L.map('map').setView([latitude , longitude], 13);
+                // Clean up existing map if it exists
+                if (map) {
+                    map.remove();
+                }
+                
+                map = L.map('map').setView([latitude , longitude], 13);
 
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,

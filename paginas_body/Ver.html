@@ -28,3 +28,13 @@
     </div>
   </div>
 </section>
+
+<script src="./public/dis/js/localStorage.js"></script>
+<script>
+  // Ejecutar cargarPerfiles cuando se carga la página
+  if (typeof cargarPerfiles === 'function') {
+    cargarPerfiles();
+  }else{
+    console.log("Error de carga")
+  }
+</script>
