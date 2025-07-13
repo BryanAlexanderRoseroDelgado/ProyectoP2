@@ -387,26 +387,48 @@ footer {
   color: white;
 }
 
-/* Canvas styling for camera functionality */
-#foto_resultado {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+
+/* Boton notificaciones  */
+
+#notiBtn {
+  color: var(--color-texto);
 }
 
-#video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+#notiCount {
+  font-size: 12px;
+  z-index: 10;
 }
 
-#foto_resultado {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  border: 2px solid #6c757d;
+#notiList {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--color-sesion);
+  color: var(--color-sesion-texto);
+  border-radius: 12px;
+}
+
+#notiList li {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+#notiList li:hover {
+  background-color: var(--color-hover-fila);
+}
+
+/* Boton cerrar notificaciones */
+.confirm-box {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--color-sesion);
+  color: var(--color-texto);
+  padding: 1rem;
   border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  transition: transform 0.3s ease;
+  max-width: 300px;
 }
