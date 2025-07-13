@@ -232,7 +232,6 @@ function eliminarProducto(tipo, nombre) {
 
   mostrarToast("<p style='color: red;'>!Producto Borrado exitosamente!</p>");
 
-  // Reload the specific product container
   cargarProductosDesdeLocalStorage(tipo, tipo + '_tabla');
 }
 
