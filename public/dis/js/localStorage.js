@@ -234,5 +234,6 @@ function eliminarProducto(tipo, nombre) {
   cargarProductosDesdeLocalStorage(tipo, obtenerContainerIdPorTipo(tipo));
 }
 
-// Ejecutar al cargar la página
-document.addEventListener("DOMContentLoaded", cargarPerfiles);
+
+// Note: cargarPerfiles() is now called directly in the HTML pages that need it
+// instead of globally on every page load
