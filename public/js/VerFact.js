@@ -67,65 +67,62 @@ function mostrarFacturaSeleccionada() {
   contenedor.style.display = "block";
 }
 
-function descargarFacturaPDF() {
+async function descargarFacturaPDF() {
   if (!facturaSeleccionada) {
     alert("No hay ninguna factura cargada.");
     return;
   }
 
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
   const cliente = facturaSeleccionada.cliente;
   const nombreArchivo = `${facturaSeleccionada.numero} - ${cliente.nombre} ${cliente.apellido} - ${facturaSeleccionada.fecha}.pdf`;
 
-  const elementoOriginal = document.querySelector(".factura-card");
+  let y = 10;
 
-  if (!elementoOriginal) {
-    alert("No se encontró el elemento de la factura para exportar.");
-    return;
-  }
+  doc.setFontSize(16);
+  doc.text(`Factura N° ${facturaSeleccionada.numero}`, 10, y);
+  y += 10;
 
-  // Clonar el contenido a imprimir
-  const clon = elementoOriginal.cloneNode(true);
+  doc.setFontSize(12);
+  doc.text(`Fecha: ${facturaSeleccionada.fecha}`, 10, y); y += 7;
+  doc.text(`Cliente: ${cliente.nombre} ${cliente.apellido}`, 10, y); y += 7;
+  doc.text(`Cédula: ${cliente.cedula}`, 10, y); y += 7;
+  doc.text(`Celular: ${cliente.celular}`, 10, y); y += 10;
 
-  // Quitar botones del clon
-  clon.querySelectorAll("button, a").forEach(el => el.remove());
+  doc.text("Productos:", 10, y); y += 7;
 
-  // Opcional: aplicar estilos simples para asegurar legibilidad en PDF
-  clon.style.fontSize = "14px";
-  clon.style.backgroundColor = "#fff";
-  clon.style.position = "absolute";
-  clon.style.left = "-9999px";
-  clon.style.top = "0";
-  clon.style.width = "210mm";  // tamaño A4
-  clon.style.padding = "20px";
+  // Encabezados de tabla
+  doc.setFont(undefined, "bold");
+  doc.text("Nombre", 10, y);
+  doc.text("Descripción", 50, y);
+  doc.text("Precio", 110, y);
+  doc.text("Cant.", 140, y);
+  doc.text("Subtotal", 160, y);
+  doc.setFont(undefined, "normal");
+  y += 6;
 
-  // Insertar el clon al DOM temporalmente
-  document.body.appendChild(clon);
+  facturaSeleccionada.productos.forEach(item => {
+    doc.text(item.producto.name, 10, y);
+    doc.text(item.producto.description, 50, y);
+    doc.text(`$${item.producto.price.toFixed(2)}`, 110, y);
+    doc.text(`${item.cantidad}`, 140, y);
+    doc.text(`$${item.subtotal.toFixed(2)}`, 160, y);
+    y += 6;
+    if (y > 270) {
+      doc.addPage();
+      y = 10;
+    }
+  });
 
-  // Esperar un pequeño tiempo para asegurar que el DOM esté listo
-  setTimeout(() => {
-    html2pdf()
-      .set({
-        filename: nombreArchivo,
-        margin: 10,
-        jsPDF: { format: 'a4' },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          logging: true
-        }
-      })
-      .from(clon)
-      .save()
-      .then(() => {
-        document.body.removeChild(clon);
-        console.log("Factura exportada correctamente.");
-      })
-      .catch(err => {
-        console.error("Error al generar PDF:", err);
-        alert("No se pudo generar el PDF. Intenta nuevamente.");
-        document.body.removeChild(clon);
-      });
-  }, 300);
+  y += 10;
+  doc.setFont(undefined, "bold");
+  doc.text(`Subtotal: $${facturaSeleccionada.subtotal.toFixed(2)}`, 130, y); y += 7;
+  doc.text(`IVA: $${facturaSeleccionada.iva.toFixed(2)}`, 130, y); y += 7;
+  doc.text(`Total: $${facturaSeleccionada.total.toFixed(2)}`, 130, y);
+
+  doc.save(nombreArchivo);
 }
 
 

@@ -1,8 +1,8 @@
 <style>
   /* Tarjeta del formulario */
   .card-formulario {
-    background: var(--color-sesion);
-    color: var(--color-sesion-texto);
+    background: var(--color-fondo);
+    
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -13,7 +13,6 @@
   .form-control,
   .form-select {
     background: #ffffff34;
-    color: var(--color-sesion-texto);
     border: 2px solid var(--color-borde);
     border-radius: 0.5rem;
     transition: border-color 0.3s ease;
@@ -36,7 +35,7 @@
   /* Botones */
   .btn-custom {
     background: var(--color-boton);
-    color: var(--color-sesion-texto);
+    
     border: none;
     transition: background 0.3s ease;
   }
@@ -67,7 +66,7 @@
                 <section class="mb-4">
                   <h5 id="form-title">Cliente</h5>
                   <label for="cliente-select" class="form-label">Seleccionar cliente:</label>
-                  <select id="cliente-select" class="form-select mb-3" onchange="llenarDatosCliente()">
+                  <select id="cliente-select" class="form-select mb-3 text-black" onchange="llenarDatosCliente()">
                     <option value="">-- Nuevo cliente --</option>
                   </select>
 
@@ -75,19 +74,19 @@
                   <div id="datos-cliente" class="row g-3">
                     <div class="col-md-6">
                       <label class="form-label">Nombre:</label>
-                      <input type="text" id="nombre-cliente" class="form-control" disabled>
+                      <input type="text" id="nombre-cliente" class="form-control text-black" placeholder="Nombre" disabled>
                     </div>
                     <div class="col-md-6">
                       <label class="form-label">Apellido:</label>
-                      <input type="text" id="apellido-cliente" class="form-control" disabled>
+                      <input type="text" id="apellido-cliente" class="form-control text-black" placeholder="Nombre" disabled>
                     </div>
                     <div class="col-md-6">
                       <label class="form-label">Cédula:</label>
-                      <input type="text" id="cedula-cliente" class="form-control" disabled>
+                      <input type="text" id="cedula-cliente" class="form-control text-black" placeholder="Nombre" disabled>
                     </div>
                     <div class="col-md-6">
                       <label class="form-label">Celular:</label>
-                      <input type="text" id="celular-cliente" class="form-control" disabled>
+                      <input type="text" id="celular-cliente" class="form-control text-black" placeholder="Nombre" disabled>
                     </div>
                   </div>
                 </section>
@@ -128,14 +127,14 @@
                       <input type="number" min="1" value="1" id="cantidad-producto" class="form-control">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" onclick="agregarAlCarrito()" class="btn btn-success w-100">
+                      <button type="button" onclick="reproducirSonido(); agregarAlCarrito()" class="btn btn-success w-100">
                         <i class="bi bi-cart-plus"></i> Agregar al carrito
                       </button>
                     </div>
                   </div>
 
                   <!-- Detalles producto seleccionado -->
-                  <div id="detalle-producto" class="mb-3" style="display: none;">
+                  <div id="detalle-producto" class="mb-3" style="display: none; background: #ffffff85; border: 1px solid var(--color-borde); border-radius: 0.5rem; padding: 1rem;">
                     <p class="mb-1"><b>Descripción:</b> <span id="descripcion-producto"></span></p>
                     <p class="mb-1"><b>Precio unitario:</b> $<span id="precio-producto">0.00</span></p>
                   </div>
@@ -169,10 +168,10 @@
                 </section>
                 <!-- BOTONES -->
                 <div class="d-flex gap-2">
-                  <button type="button" onclick="generarFactura()" class="btn btn-custom">
+                  <button type="button" onclick="reproducirSonidonoti(); generarFactura()" class="btn btn-custom">
                     <i class="bi bi-receipt"></i> Generar factura
                   </button>
-                  <button type="reset" onclick="limpiarFormularioCompleto()" class="btn btn-outline-danger">
+                  <button type="reset" onclick="reproducirSonidoborrar(); limpiarFormularioCompleto()" class="btn btn-outline-danger">
                     <i class="bi bi-x-circle"></i> Limpiar
                   </button>
                         <button type="button" class="btn btn-primary"  onclick="cargarContenido('paginas_body/VerFact.html', 'contenido')">
@@ -188,3 +187,9 @@
     </div>
   </div>
 </div>
+
+<audio id="sonidoClickborrar"  src="./public/media/audio/borrado.mp3" preload="auto"></audio>
+
+<audio id="sonidoClick" src="./public/media/audio/clickf.mp3" preload="auto"></audio>
+
+<audio id="sonidoClicknoti" src="./public/media/audio/noti.mp3" preload="auto"></audio>
