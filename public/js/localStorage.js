@@ -94,23 +94,35 @@ function guardarProducto() {
   const descripcion = document
     .getElementById("descripcionProducto")
     .value.trim();
+  
+  // Try to get image from canvas first (camera/uploaded image), then from file input
+  let imagenBase64 = null;
+  
+  // Check if we have a canvas with an image (from camera or file upload)
+  if (typeof getPhotoDataProducto === 'function') {
+    const canvasData = getPhotoDataProducto();
+    const canvas = document.getElementById("foto_resultado_producto");
+    if (canvas && canvas.style.display !== 'none' && canvasData) {
+      imagenBase64 = canvasData;
+    }
+  }
+  
+  // If no canvas image, try file input (fallback for direct file selection)
   const archivoImagen = document.getElementById("imagenProducto").files[0];
-
-  if (!archivoImagen) {
-    alert("Por favor selecciona una imagen.");
+  
+  if (!imagenBase64 && !archivoImagen) {
+    alert("Por favor selecciona o toma una imagen.");
     return;
   }
-
-  const lector = new FileReader();
-  lector.onload = function (e) {
-    const imagenBase64 = e.target.result;
-
+  
+  // Function to save the product
+  function saveProduct(imageData) {
     const producto = {
       name: nombre,
       type: tipo,
       price: precio,
       description: descripcion,
-      image: imagenBase64,
+      image: imageData,
     };
 
     const key = "productos_" + tipo;
@@ -119,12 +131,27 @@ function guardarProducto() {
     localStorage.setItem(key, JSON.stringify(productosGuardados));
 
     agregarNotificacion(`Se ha creado el producto ${nombre} exitosamente!`);
-
-    mostrarToast("Preducto Creado exitosamente!");
+    mostrarToast("Producto Creado exitosamente!");
+    
+    // Reset form and photo
     document.getElementById("form-producto").reset();
-  };
-
-  lector.readAsDataURL(archivoImagen);
+    if (typeof resetFotoProducto === 'function') {
+      resetFotoProducto();
+    }
+  }
+  
+  // If we have canvas data, use it directly
+  if (imagenBase64) {
+    saveProduct(imagenBase64);
+  } 
+  // Otherwise, read from file input
+  else if (archivoImagen) {
+    const lector = new FileReader();
+    lector.onload = function (e) {
+      saveProduct(e.target.result);
+    };
+    lector.readAsDataURL(archivoImagen);
+  }
 }
 
 function cargarProductosDesdeLocalStorage(tipo, containerId) {
