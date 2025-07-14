@@ -72,7 +72,7 @@
           <div class="col-12 text-center">
             <!-- Canvas for camera display and photo capture -->
             <canvas id="foto_resultado" width="500" height="390"
-              style="border: 2px solid #6c757d; border-radius: 10px; max-width: 100%; height: auto;"></canvas>
+              style="border: 2px solid #6c757d; border-radius: 10px; max-width: 100%; height: auto; display: block; margin: 0 auto;"></canvas>
 
             <!-- File upload input (hidden) -->
             <input type="file" id="upload-photo-input" accept="image/*" style="display: none;" onchange="handleFileUpload(this)">
@@ -89,8 +89,6 @@
               <!-- File upload option -->
               <button type="button" id="subir-archivo-btn" class="btn btn-outline-info"
                 onclick="reproducirSonido(); triggerFileUpload()">Subir Archivo</button>
-              <button type="button" id="cambiar-archivo-btn" class="btn btn-outline-secondary" onclick="reproducirSonido(); triggerFileUpload()"
-                style="display: none;">Cambiar Archivo</button>
             </div>
           </div>
         </div>
