@@ -31,10 +31,11 @@
 
         <div class="mb-3">
           <label for="fechanacimiento" class="form-label">Fecha de nacimiento:</label>
-          <input type="date" id="fechanacimiento" name="fechanacimiento" class="form-control" min="1960-05-01" max="2007-05-01" required>
+          <input type="date" id="fechanacimiento" name="fechanacimiento" class="form-control" min="1960-05-01"
+            max="2007-05-01" required>
         </div>
 
-        <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
+        <button type="button" class="btn-next" onclick="reproducirSonido(); saltarPaso(this)" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
@@ -56,7 +57,7 @@
           <input type="number" name="postal" class="form-control" id="postal" placeholder="Ej: 170123" required>
         </div>
 
-        <button type="button" class="btn-next" onclick="saltarPaso(this)" style="position: relative;
+        <button type="button" class="btn-next" onclick="reproducirSonido();  saltarPaso(this)" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
@@ -70,12 +71,16 @@
         <div class="row g-3">
           <div class="col-12 text-center">
             <!-- Canvas for camera display and photo capture -->
-            <canvas id="foto_resultado" width="500" height="390" style="border: 2px solid #6c757d; border-radius: 10px; max-width: 100%; height: auto;"></canvas>
-            
+            <canvas id="foto_resultado" width="500" height="390"
+              style="border: 2px solid #6c757d; border-radius: 10px; max-width: 100%; height: auto;"></canvas>
+
             <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
-              <button type="button" id="activar-camara-btn" class="btn btn-outline-primary" onclick="ActivarCamara()">Activar Cámara</button>
-              <button type="button" id="tomar-foto-btn" class="btn btn-outline-success" onclick="TomarFoto()" style="display: none;">Tomar Foto</button>
-              <button type="button" id="retomar-foto-btn" class="btn btn-outline-warning" onclick="RetomarFoto()" style="display: none;">Retomar Foto</button>
+              <button type="button" id="activar-camara-btn" class="btn btn-outline-primary"
+                onclick="reproducirSonido(); ActivarCamara()">Activar Cámara</button>
+              <button type="button" id="tomar-foto-btn" class="btn btn-outline-success" onclick="reproducirSonido(); TomarFoto()"
+                style="display: none;">Tomar Foto</button>
+              <button type="button" id="retomar-foto-btn" class="btn btn-outline-warning" onclick="reproducirSonido(); RetomarFoto()"
+                style="display: none;">Retomar Foto</button>
             </div>
           </div>
         </div>
@@ -85,36 +90,38 @@
                 left: 10px;
                 right: 10px;
                 bottom: 20px;
-                    " onclick="saltarPaso(this)">Siguiente</button>
+                    " onclick="reproducirSonido(); saltarPaso(this)">Siguiente</button>
       </fieldset>
 
       <!-- Paso 4: Ubicación -->
       <fieldset class="section">
         <h3>Ubicación</h3>
         <p>Permita que la página registre su ubicación de envío.</p>
-        <button type="button" class="btn btn-outline-primary mb-3" onclick="localizar()">Acceder a ubicación</button>
+        <button type="button" class="btn btn-outline-primary mb-3" onclick="reproducirSonido(); localizar()">Acceder a ubicación</button>
 
         <div class="mb-2">
           <label for="latitud">Latitud:</label>
-          <input type="text" name="latitud" value="0" id="latitud" class="form-control" placeholder="Latitud automática">
+          <input type="text" name="latitud" value="0" id="latitud" class="form-control"
+            placeholder="Latitud automática">
         </div>
 
         <div class="mb-2">
           <label for="longitud">Longitud:</label>
-          <input type="text" name="longitud" value="0" id="longitud" class="form-control" placeholder="Longitud automática">
+          <input type="text" name="longitud" value="0" id="longitud" class="form-control"
+            placeholder="Longitud automática">
         </div>
 
         <div id="map" class="mt-3" style="height: 200px;"></div>
 
-                     <div class="text-end">
-                    <button type="button" class="btn btn-outline-danger" onclick="reiniciarPasos(this)" style="position: relative;
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-danger" onclick="reproducirSonido(); reiniciarPasos(this)" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
                 bottom: 20px;
                     ">Reiniciar</button>
 
-                    <button type="button" class="btn-next btn-outline-warning" onclick="guardarDatosUsuario()" style="position: relative;
+          <button type="button" class="btn-next btn-outline-warning" onclick="reproducirSonidonoti(); guardarDatosUsuario()" style="position: relative;
                 top: 20px;
                 left: 10px;
                 right: 10px;
@@ -123,10 +130,14 @@
 
 
 
-                </div>
+        </div>
       </fieldset>
     </form>
   </div>
 </section>
 
+<!-- Seccion de sonidos de pagina -->
 
+<audio id="sonidoClick" src="./public/media/audio/clickf.mp3" preload="auto"></audio>
+
+<audio id="sonidoClicknoti" src="./public/media/audio/noti.mp3" preload="auto"></audio>

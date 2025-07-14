@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,21 +10,96 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 </head>
+
 <body>
-<!-- hola -->
+  <!-- hola -->
+  
   <header id="header" class="pb-3"></header>
 
   <nav id="sidebar"></nav>
 
-  <main id="body"></main>
-  
-  <footer id="footer" class="text-center p-4 footer-main "></footer>
-  <!-- Bootstrap Bundle con Popper (para dropdowns, tooltips, modals, etc.) -->
+  <div id="navegacion"></div>
 
+  <main id="body">
+
+
+
+  </main>
+
+
+
+
+
+  <footer id="footer" class="text-center p-4 footer-main "></footer>
+
+
+
+
+
+
+  <!-- Bot -->
+  <button id="botAyudaBtn" class="btn transparente_fixed_b" style=" color: var(--color-texto);
+  position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+    <i class="bi bi-chat-dots"></i> Ayuda
+  </button>
+
+  <div id="botAyudaBox"
+    style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background: var(--color-primeriocard); padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 998;">
+    <h5 class="text-primary">¿Necesitas ayuda?</h5>
+    <form id="formAyuda">
+      <input type="text" name="from_name" class="form-control mb-2" placeholder="Tu nombre o usuario"
+        style="background: var(--color-tabla-fila);" required>
+      <textarea name="message" class="form-control mb-2" style="background: var(--color-tabla-fila);"
+        placeholder="¿En qué podemos ayudarte?" required></textarea>
+      <button type="submit" class="btn btn-info w-100">Enviar</button>
+    </form>
+  </div>
 
   <script src="./public/lib/bootstrap-5.3.5-dist/js/bootstrap.min.js"></script>
   <script src="./public/lib/bootstrap-5.3.5-dist/js/bootstrap.bundle.js"></script>
   <script src="./public/js/loads.js"></script>
+  <!-- EmailJS SDK v4 -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (() => {
+      emailjs.init({
+        publicKey: "5Y8XYH1FI0K-6_K_r" // 👈 Reemplaza con tu Public Key real
+      });
+    })();
+  </script>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    console.log("Hola soy un script");
+    // Inicializar EmailJS con tu public key
+    emailjs.init("5Y8XYH1FI0K-6_K_r");
+
+    // Mostrar/ocultar el bot
+    document.getElementById("botAyudaBtn").addEventListener("click", () => {
+      const box = document.getElementById("botAyudaBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    });
+
+    // Enviar el formulario
+    document.getElementById("formAyuda").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      emailjs.sendForm("service_thjuhi8", "template_ljc6iwh", this)
+        .then(() => {
+          alert("¡Tu mensaje fue enviado! Gracias por contactarnos.");
+          this.reset();
+          document.getElementById("botAyudaBox").style.display = "none";
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Ocurrió un error al enviar el mensaje.");
+        });
+    });
+
+
+
+  </script>
 
 </body>
+
 </html>

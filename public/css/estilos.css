@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.05); /* ✅ transparente: está bien */
+  background: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
@@ -11,7 +11,7 @@
 }
 
 .transparenteforms {
-  background: rgba(255, 255, 255, 0.05); /* ✅ transparente: está bien */
+  background: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
@@ -21,11 +21,20 @@
   width: 100%;
 }
 
+.transparenteheader {
+  background: var(--color-fondocont); 
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 10px;
+  border: 2px solid var(--color-lineas);
+}
+
+
 /* menu*/
 
 .transparentesidebar {
-  background: rgba(255, 255, 255, 0.05); /* ✅ transparente: está bien */
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -46,9 +55,14 @@
 }
 
 :root {
-  --color-fondo: linear-gradient(135deg, #bbc0bc6b, #73797577);
+  --color-fondo: linear-gradient(135deg, #6969699c, #baeccb52);
   --color-texto: #2e3d2f;
+  --color-fondocont:  linear-gradient(135deg,  #baeccb6b, #2d2e2e8c);
+   --color-fondocont2:  linear-gradient(135deg,  #a4ebb5b9, #7cf0ea8c);
+  --color-lineas: #4c4e4c1c;
+  --color-lineas2:rgba(76, 78, 76, 0.938);
   --color-primario: #3e5f49;
+  --color-primeriocard: #e4e4e4ef;
   --color-boton: linear-gradient(
     135deg,
     #4caf50,
@@ -80,11 +94,15 @@
 body.modo-oscuro {
   --color-fondo: linear-gradient(135deg, #1f1c2c, #928dab);
   --color-texto: #f0f0f0;
+  --color-lineas: #d0dbd05e;
+  --color-fondocont: linear-gradient(135deg, #1f1c2c, #928dab);
+  --color-fondocont2: linear-gradient(135deg, #1f1c2c, #928dab);
   --color-primario: linear-gradient(135deg, #00f2fe, #4facfe);
   --color-boton: linear-gradient(135deg, #fc466b, #3f5efb);
-  --color-hover: linear-gradient(135deg, #43e97b, #38f9d7);
+  --color-hover: linear-gradient(135deg, #43e97a86, #38f9d683);
   --color-sesion: rgba(30, 30, 60, 0.9);
   --color-sesion-texto: #dff9fb;
+  --color-primeriocard: rgba(30, 30, 60, 0.9);
   --color-fondo: #121212;
   --color-texto: #e0e0e0;
   --color-tabla-header: #928dab;
@@ -377,7 +395,7 @@ footer {
   font-weight: bold;
   border-radius: 8px;
   background: transparent;
-  color: #dc3545;
+  color: #dc3546ee;
   border: 2px solid #dc3545;
   transition: background 0.3s, color 0.3s;
 }
@@ -432,3 +450,38 @@ footer {
   transition: transform 0.3s ease;
   max-width: 300px;
 }
+
+
+
+/* Bot */
+
+        .transparente_fixed_b {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            color: white;
+            width: 10%;
+            cursor: pointer;
+
+
+        }
+
+        .transparente_fixed_bot {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            bottom: 20px;
+            left: 150px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            color: white;
+            width: 20%;
+            height: 25%;
+            cursor: pointer;
+
+        }
