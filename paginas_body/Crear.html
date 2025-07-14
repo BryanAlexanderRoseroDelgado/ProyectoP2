@@ -72,15 +72,23 @@
           <div class="col-12 text-center">
             <!-- Canvas for camera display and photo capture -->
             <canvas id="foto_resultado" width="500" height="390"
-              style="border: 2px solid #6c757d; border-radius: 10px; max-width: 100%; height: auto;"></canvas>
+              style="border: 2px solid #6c757d; border-radius: 10px; max-width: 100%; height: auto; display: block; margin: 0 auto;"></canvas>
+
+            <!-- File upload input (hidden) -->
+            <input type="file" id="upload-photo-input" accept="image/*" style="display: none;" onchange="handleFileUpload(this)">
 
             <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
+              <!-- Camera options -->
               <button type="button" id="activar-camara-btn" class="btn btn-outline-primary"
                 onclick="reproducirSonido(); ActivarCamara()">Activar Cámara</button>
               <button type="button" id="tomar-foto-btn" class="btn btn-outline-success" onclick="reproducirSonido(); TomarFoto()"
                 style="display: none;">Tomar Foto</button>
               <button type="button" id="retomar-foto-btn" class="btn btn-outline-warning" onclick="reproducirSonido(); RetomarFoto()"
                 style="display: none;">Retomar Foto</button>
+              
+              <!-- File upload option -->
+              <button type="button" id="subir-archivo-btn" class="btn btn-outline-info"
+                onclick="reproducirSonido(); triggerFileUpload()">Subir Archivo</button>
             </div>
           </div>
         </div>

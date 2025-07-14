@@ -112,9 +112,47 @@
                         <option value="">-- Selecciona un producto --</option>
                       </select>
                     </div>
+<<<<<<< HEAD
                     <div class="col-md-3">
                       <label for="cantidad-producto" class="form-label">Cantidad:</label>
                       <input type="number" min="1" value="1" id="cantidad-producto" class="form-control">
+=======
+                  </div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- Fotografía -->
+                <section class="mb-4">
+                  <h5>Fotografía del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Captura una fotografía del cliente</p>
+                  <div class="row g-3">
+                    <div class="col-12 text-center">
+                      <!-- Canvas for camera display and photo capture -->
+                      <div class="d-flex flex-column align-items-center">
+                        <!-- Camera options -->
+                        <button type="button" class="btn btn-outline-primary mb-3" onclick="abrirCamaraCliente()">
+                          <i class="bi bi-camera"></i> Abrir cámara
+                        </button>
+                        <video id="video_cliente" width="300" height="200" style="display: none; border: 2px solid #ccc; border-radius: 8px;"></video>
+                        <button type="button" id="capturar_cliente" class="btn btn-success mt-2" onclick="capturarFotoCliente()" style="display: none;">
+                          <i class="bi bi-camera-fill"></i> Capturar foto
+                        </button>
+                        
+                        <!-- File upload option -->
+                        <input type="file" id="upload-photo-cliente" accept="image/*" style="display: none;" onchange="handleFileUploadCliente(this)">
+                        <button type="button" id="subir-archivo-cliente-btn" class="btn btn-outline-info mb-3" onclick="triggerFileUploadCliente()">
+                          <i class="bi bi-upload"></i> Subir Archivo
+                        </button>
+                        
+                        <canvas id="foto_resultado_cliente" width="300" height="200" style="display: none; border: 2px solid #28a745; border-radius: 8px; margin-top: 10px;"></canvas>
+                        
+                        <!-- Reset/change photo button -->
+                        <button type="button" id="cambiar-foto-cliente" class="btn btn-outline-warning mt-2" onclick="resetFotoCliente()" style="display: none;">
+                          <i class="bi bi-arrow-clockwise"></i> Cambiar foto
+                        </button>
+                      </div>
+>>>>>>> 97006c0e14c669ff2bfd62a6263f56c9e99dc021
                     </div>
                     <div class="col-md-4">
                       <button type="button" onclick="agregarAlCarrito()" class="btn btn-success w-100">
