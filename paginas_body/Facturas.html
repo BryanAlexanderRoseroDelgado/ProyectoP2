@@ -76,25 +76,123 @@
                 <!-- Datos del cliente -->
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label for="nombre-cliente" class="form-label">Nombre</label>
-                    <input id="nombre-cliente" type="text" class="form-control" placeholder="Ingrese el nombre" />
+                    <label for="cedula-cliente" class="form-label">Número de cédula</label>
+                    <input id="cedula-cliente" type="number" class="form-control" placeholder="Ej: 0102030405" />
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label for="CI-cliente" class="form-label">Cédula</label>
-                    <input id="CI-cliente" type="text" class="form-control" placeholder="Ej: 0102030405" />
+                    <label for="nombre-cliente" class="form-label">Nombres Completos</label>
+                    <input id="nombre-cliente" type="text" class="form-control" placeholder="Ej: Juan Carlos" />
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label for="Correo-cliente" class="form-label">Correo</label>
-                    <input id="Correo-cliente" type="email" class="form-control" placeholder="correo@ejemplo.com" />
+                    <label for="apellido-cliente" class="form-label">Apellidos Completos</label>
+                    <input id="apellido-cliente" type="text" class="form-control" placeholder="Ej: Pérez Gómez" />
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label for="telefono-cliente" class="form-label">Celular</label>
-                    <input id="telefono-cliente" type="tel" class="form-control" placeholder="0991234567" />
+                    <label for="fechanacimiento-cliente" class="form-label">Fecha de nacimiento</label>
+                    <input id="fechanacimiento-cliente" type="date" class="form-control" min="1960-05-01" max="2007-05-01" />
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="telefono-cliente" class="form-label">Número de celular</label>
+                    <input id="telefono-cliente" type="tel" class="form-control" placeholder="Ej: 0991234567" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="Correo-cliente" class="form-label">Correo electrónico</label>
+                    <input id="Correo-cliente" type="email" class="form-control" placeholder="correo@ejemplo.com" />
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Dirección -->
+                <section class="mb-4">
+                  <h5>Dirección del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Información de dirección y ubicación</p>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="direccion-cliente" class="form-label">Dirección principal</label>
+                      <input id="direccion-cliente" type="text" class="form-control" placeholder="Calle principal y secundaria" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="postal-cliente" class="form-label">Código postal</label>
+                      <input id="postal-cliente" type="text" class="form-control" placeholder="Ej: 170123" />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="ciudad-cliente" class="form-label">Ciudad</label>
+                      <input id="ciudad-cliente" type="text" class="form-control" placeholder="Ej: Quito" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="pais-cliente" class="form-label">País</label>
+                      <select class="form-select" id="pais-cliente">
+                        <option>Ecuador</option>
+                        <option>Italia</option>
+                        <option>México</option>
+                        <option>Perú</option>
+                      </select>
+                    </div>
+                  </div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- Fotografía -->
+                <section class="mb-4">
+                  <h5>Fotografía del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Captura una fotografía del cliente</p>
+                  <div class="row g-3">
+                    <div class="col-12 text-center">
+                      <!-- Canvas for camera display and photo capture -->
+                      <div class="d-flex flex-column align-items-center">
+                        <button type="button" class="btn btn-outline-primary mb-3" onclick="abrirCamaraCliente()">
+                          <i class="bi bi-camera"></i> Abrir cámara
+                        </button>
+                        <video id="video_cliente" width="300" height="200" style="display: none; border: 2px solid #ccc; border-radius: 8px;"></video>
+                        <button type="button" id="capturar_cliente" class="btn btn-success mt-2" onclick="capturarFotoCliente()" style="display: none;">
+                          <i class="bi bi-camera-fill"></i> Capturar foto
+                        </button>
+                        <canvas id="foto_resultado_cliente" width="300" height="200" style="display: none; border: 2px solid #28a745; border-radius: 8px; margin-top: 10px;"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <hr class="my-4">
+
+                <!-- Ubicación -->
+                <section class="mb-4">
+                  <h5>Ubicación del Cliente</h5>
+                  <p class="card-description" style="color: var(--color-sesion-texto)">Registre la ubicación de envío del cliente</p>
+                  <div class="row">
+                    <div class="col-12 mb-3">
+                      <button type="button" class="btn btn-outline-primary" onclick="localizarCliente()">
+                        <i class="bi bi-geo-alt"></i> Acceder a ubicación
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="latitud-cliente" class="form-label">Latitud</label>
+                      <input id="latitud-cliente" type="text" class="form-control" placeholder="Latitud automática" value="0" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="longitud-cliente" class="form-label">Longitud</label>
+                      <input id="longitud-cliente" type="text" class="form-control" placeholder="Longitud automática" value="0" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div id="map_cliente" style="height: 200px; border-radius: 8px; margin-top: 10px;"></div>
+                    </div>
+                  </div>
+                </section>
 
                 <hr class="my-4">
 
@@ -103,37 +201,6 @@
                   <h5>Productos</h5>
                   <div id="productos-container" class="row"></div>
                 </section>
-
-                <hr class="my-4">
-
-                <!-- Dirección -->
-                <p class="card-description" style="color: var(--color-sesion-texto)">Dirección</p>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="direccion-cliente" class="form-label">Dirección principal</label>
-                    <input id="direccion-cliente" type="text" class="form-control" placeholder="Calle principal y secundaria" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="postal-cliente" class="form-label">Código postal</label>
-                    <input id="postal-cliente" type="text" class="form-control" placeholder="Ej: 170123" />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="ciudad-cliente" class="form-label">Ciudad</label>
-                    <input id="ciudad-cliente" type="text" class="form-control" placeholder="Ej: Quito" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="pais-cliente" class="form-label">País</label>
-                    <select class="form-select" id="pais-cliente">
-                      <option>Ecuador</option>
-                      <option>Italia</option>
-                      <option>México</option>
-                      <option>Perú</option>
-                    </select>
-                  </div>
-                </div>
 
                 <hr class="my-4">
 
@@ -163,14 +230,4 @@
     </div>
   </div>
 
-  <!-- Limpieza de campos -->
-  <script>
-    function limpiarFormularioCompleto() {
-      document.querySelector(".form-sample").reset();
-      document.getElementById("productos-container").innerHTML = "";
-      document.getElementById("subtotal").textContent = "0.00";
-      document.getElementById("iva").textContent = "0.00";
-      document.getElementById("total").textContent = "0.00";
-    }
-  </script>
 </div>
