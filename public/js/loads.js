@@ -1,4 +1,4 @@
- // Keep track of loaded external scripts to prevent multiple DOM additions
+// Keep track of loaded external scripts to prevent multiple DOM additions
 const loadedScripts = new Set();
 const scriptElements = new Map(); 
 
@@ -42,10 +42,11 @@ const pageScriptConfig = {
     
     'paginas_body/Crear_Pr.html': async () => {
         console.log('Crear_Pr page loaded');
-        // Load both localStorage and estilos scripts
+        // Load all required scripts including the shared camera functionality
         await Promise.all([
             loadExternalScript('./public/js/localStorage.js'),
-            loadExternalScript('./public/js/estilos.js')
+            loadExternalScript('./public/js/estilos.js'),
+            loadExternalScript('./public/js/camara.js')
         ]);
     },
     
@@ -127,6 +128,11 @@ const pageScriptConfig = {
                         video.srcObject = stream;
                         video.style.display = "block";
                         captureBtn.style.display = "block";
+                        
+                        // Hide file upload button when camera is active
+                        document.getElementById('subir-archivo-cliente-btn').style.display = 'none';
+                        document.getElementById('cambiar-foto-cliente').style.display = 'none';
+                        
                         video.play();
                     })
                     .catch(function(error) {
@@ -145,6 +151,10 @@ const pageScriptConfig = {
                 video.style.display = "none";
                 document.getElementById("capturar_cliente").style.display = "none";
                 canvas.style.display = "block";
+                
+                // Hide upload button and show change button
+                document.getElementById('subir-archivo-cliente-btn').style.display = 'none';
+                document.getElementById('cambiar-foto-cliente').style.display = 'block';
                 
                 if (stream_cliente) {
                     stream_cliente.getTracks().forEach(track => track.stop());
@@ -186,6 +196,122 @@ const pageScriptConfig = {
                     alert("La geolocalización no es compatible con este navegador.");
                 }
             };
+            
+            // File upload functions for Facturas page
+            window.triggerFileUploadCliente = function() {
+                const fileInput = document.getElementById('upload-photo-cliente');
+                if (fileInput) {
+                    fileInput.click();
+                }
+            };
+
+            window.handleFileUploadCliente = function(input) {
+                const file = input.files[0];
+                if (!file) {
+                    return;
+                }
+
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Por favor selecciona un archivo de imagen válido.');
+                    input.value = ''; // Clear the input
+                    return;
+                }
+
+                // Validate file size (max 5MB)
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (file.size > maxSize) {
+                    alert('El archivo es demasiado grande. Por favor selecciona una imagen menor a 5MB.');
+                    input.value = ''; // Clear the input
+                    return;
+                }
+
+                // Clean up any existing camera stream
+                if (stream_cliente) {
+                    stream_cliente.getTracks().forEach(track => track.stop());
+                    stream_cliente = null;
+                }
+
+                // Use FileReader to load the image
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    displayUploadedImageCliente(e.target.result);
+                    updateButtonsForUploadCliente();
+                };
+                reader.readAsDataURL(file);
+            };
+
+            window.displayUploadedImageCliente = function(imageSrc) {
+                const canvas = document.getElementById("foto_resultado_cliente");
+                const context = canvas.getContext("2d");
+                
+                const img = new Image();
+                img.onload = function() {
+                    // Clear canvas
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Calculate scaling to fit image in canvas while maintaining aspect ratio
+                    const canvasAspect = canvas.width / canvas.height;
+                    const imageAspect = img.width / img.height;
+                    
+                    let drawWidth, drawHeight, drawX, drawY;
+                    
+                    if (imageAspect > canvasAspect) {
+                        // Image is wider than canvas
+                        drawWidth = canvas.width;
+                        drawHeight = canvas.width / imageAspect;
+                        drawX = 0;
+                        drawY = (canvas.height - drawHeight) / 2;
+                    } else {
+                        // Image is taller than canvas
+                        drawHeight = canvas.height;
+                        drawWidth = canvas.height * imageAspect;
+                        drawX = (canvas.width - drawWidth) / 2;
+                        drawY = 0;
+                    }
+                    
+                    // Draw the image centered on canvas
+                    context.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+                    
+                    // Show canvas
+                    canvas.style.display = "block";
+                };
+                img.src = imageSrc;
+            };
+
+            window.updateButtonsForUploadCliente = function() {
+                // Hide camera options
+                document.getElementById('video_cliente').style.display = 'none';
+                document.getElementById('capturar_cliente').style.display = 'none';
+                
+                // Hide upload button, show change button
+                document.getElementById('subir-archivo-cliente-btn').style.display = 'none';
+                document.getElementById('cambiar-foto-cliente').style.display = 'block';
+            };
+
+            window.resetFotoCliente = function() {
+                // Clear file input
+                const fileInput = document.getElementById('upload-photo-cliente');
+                if (fileInput) {
+                    fileInput.value = '';
+                }
+                
+                // Clean up camera stream
+                if (stream_cliente) {
+                    stream_cliente.getTracks().forEach(track => track.stop());
+                    stream_cliente = null;
+                }
+                
+                // Hide all elements
+                document.getElementById('video_cliente').style.display = 'none';
+                document.getElementById('capturar_cliente').style.display = 'none';
+                document.getElementById('foto_resultado_cliente').style.display = 'none';
+                document.getElementById('cambiar-foto-cliente').style.display = 'none';
+                
+                // Show initial upload button
+                document.getElementById('subir-archivo-cliente-btn').style.display = 'block';
+            };
+
         }, 200);
     },
     
@@ -198,6 +324,11 @@ const pageScriptConfig = {
 };
 
 function cargarContenido(pagina, id) {
+    // Clean up camera state before loading new content
+    if (typeof window.resetCameraForNavigation === 'function') {
+        window.resetCameraForNavigation();
+    }
+    
     fetch(`${pagina}`)
         .then(res => res.text())
         .then(data => {

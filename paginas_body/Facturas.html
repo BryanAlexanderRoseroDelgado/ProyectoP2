@@ -151,6 +151,7 @@
                     <div class="col-12 text-center">
                       <!-- Canvas for camera display and photo capture -->
                       <div class="d-flex flex-column align-items-center">
+                        <!-- Camera options -->
                         <button type="button" class="btn btn-outline-primary mb-3" onclick="abrirCamaraCliente()">
                           <i class="bi bi-camera"></i> Abrir cámara
                         </button>
@@ -158,7 +159,19 @@
                         <button type="button" id="capturar_cliente" class="btn btn-success mt-2" onclick="capturarFotoCliente()" style="display: none;">
                           <i class="bi bi-camera-fill"></i> Capturar foto
                         </button>
+                        
+                        <!-- File upload option -->
+                        <input type="file" id="upload-photo-cliente" accept="image/*" style="display: none;" onchange="handleFileUploadCliente(this)">
+                        <button type="button" id="subir-archivo-cliente-btn" class="btn btn-outline-info mb-3" onclick="triggerFileUploadCliente()">
+                          <i class="bi bi-upload"></i> Subir Archivo
+                        </button>
+                        
                         <canvas id="foto_resultado_cliente" width="300" height="200" style="display: none; border: 2px solid #28a745; border-radius: 8px; margin-top: 10px;"></canvas>
+                        
+                        <!-- Reset/change photo button -->
+                        <button type="button" id="cambiar-foto-cliente" class="btn btn-outline-warning mt-2" onclick="resetFotoCliente()" style="display: none;">
+                          <i class="bi bi-arrow-clockwise"></i> Cambiar foto
+                        </button>
                       </div>
                     </div>
                   </div>
