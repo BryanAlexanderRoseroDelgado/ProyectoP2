@@ -81,6 +81,7 @@
   --color-tabla-header: #dde6d5;
   --color-tabla-fila: #d3d8eea2;
   --color-borde: #0a0a0a33;
+  --color-botonedit: #e7dd81b6;
   --color-hover-fila: #ffffff83;
   --fondo-figura-1: #0ff3ab;
   --fondo-figura-2: #f9f3d3;
@@ -108,8 +109,9 @@ body.modo-oscuro {
   --color-tabla-header: #928dab;
   --color-tabla-fila: #1f1c2c;
   --color-borde: #333;
+  --color-botonedit: #9a85bdb6;
   --color-hover-fila: #2a2a2a;
-  --fondo-figura-1: #2b3a55;
+  --fondo-figura-1: #2b3a55; 
   --fondo-figura-2: #3d4f65;
   --fondo-figura-3: #1f2a3a;
   --figura-clara-1: #37474f;
