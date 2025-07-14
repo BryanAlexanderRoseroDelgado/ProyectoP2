@@ -40,14 +40,24 @@ const pageScriptConfig = {
         document.head.appendChild(mapStyle);
     },
     
-    'paginas_body/Crear_Pr.html': './public/js/localStorage.js',
+    'paginas_body/Crear_Pr.html': async () => {
+        console.log('Crear_Pr page loaded');
+        // Load both localStorage and estilos scripts
+        await Promise.all([
+            loadExternalScript('./public/js/localStorage.js'),
+            loadExternalScript('./public/js/estilos.js')
+        ]);
+    },
     
     'paginas_body/Ver.html': async () => {
         console.log('Ver page loaded');
-        // Load localStorage script first, then execute cargarPerfiles
-        await loadExternalScript('./public/js/localStorage.js');
+        // Load both localStorage and estilos scripts first
+        await Promise.all([
+            loadExternalScript('./public/js/localStorage.js'),
+            loadExternalScript('./public/js/estilos.js')
+        ]);
         
-        // Execute after script is loaded
+        // Execute after scripts are loaded
         if (typeof cargarPerfiles === 'function') {
             cargarPerfiles();
         } else {
@@ -57,10 +67,13 @@ const pageScriptConfig = {
     
     'paginas_body/Ver_Pr.html': async () => {
         console.log('Ver_Pr page loaded');
-        // Load localStorage script first, then execute product loading
-        await loadExternalScript('./public/js/localStorage.js');
+        // Load both localStorage and estilos scripts first
+        await Promise.all([
+            loadExternalScript('./public/js/localStorage.js'),
+            loadExternalScript('./public/js/estilos.js')
+        ]);
         
-        // Execute after script is loaded
+        // Execute after scripts are loaded
         if (typeof cargarProductosDesdeLocalStorage === 'function') {
             cargarProductosDesdeLocalStorage('teclado', 'teclado_tabla');
             cargarProductosDesdeLocalStorage('mouse', 'mouse_tabla');
