@@ -1,6 +1,6 @@
 // Facturacion.js
 
-// Variables globales
+// =================== VARIABLES GLOBALES ===================
 let carrito = [];
 let productosCargados = [];
 let clienteSeleccionado = null;
@@ -15,7 +15,6 @@ function llenarDatosCliente() {
   if (!perfil) return;
 
   clienteSeleccionado = perfil;
-
   document.getElementById("nombre-cliente").value = perfil.nombre;
   document.getElementById("apellido-cliente").value = perfil.apellido;
   document.getElementById("cedula-cliente").value = perfil.cedula;
@@ -24,6 +23,7 @@ function llenarDatosCliente() {
 
 function cargarClientes() {
   const select = document.getElementById("cliente-select");
+  select.innerHTML = '<option value="">-- Nuevo cliente --</option>';
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key.startsWith("perfil_")) {
@@ -150,7 +150,58 @@ function generarNumeroFactura() {
   return Math.floor(Math.random() * 10 ** 15).toString().padStart(15, "0");
 }
 
-// =================== LIMPIAR ===================
+// =================== MOSTRAR FACTURAS ===================
+function cargarFacturasAlSelect() {
+  const select = document.getElementById("factura-select");
+  select.innerHTML = '<option value="">-- Selecciona una factura --</option>';
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith("factura_")) {
+      const factura = JSON.parse(localStorage.getItem(key));
+      const option = document.createElement("option");
+      option.value = factura.numero;
+      option.textContent = `${factura.numero} - ${factura.cliente.nombre} ${factura.cliente.apellido} - ${factura.fecha}`;
+      select.appendChild(option);
+    }
+  }
+}
+
+function mostrarFacturaSeleccionada() {
+  const id = document.getElementById("factura-select").value;
+  const data = localStorage.getItem("factura_" + id);
+  if (!data) return;
+  const factura = JSON.parse(data);
+
+  const contenedor = document.getElementById("factura-preview");
+  contenedor.innerHTML = `
+    <h5>Factura N.º ${factura.numero}</h5>
+    <p><b>Fecha:</b> ${factura.fecha}</p>
+    <p><b>Cliente:</b> ${factura.cliente.nombre} ${factura.cliente.apellido}</p>
+    <hr>
+    ${factura.productos.map(p => `
+      <p>${p.producto.name} (${p.cantidad} × $${p.producto.price}) = $${p.subtotal.toFixed(2)}</p>
+    `).join("")}
+    <hr>
+    <p><b>Subtotal:</b> $${factura.subtotal.toFixed(2)}</p>
+    <p><b>IVA:</b> $${factura.iva.toFixed(2)}</p>
+    <p><b>Total:</b> $${factura.total.toFixed(2)}</p>
+  `;
+}
+
+function imprimirFactura() {
+  const preview = document.getElementById("factura-preview");
+  if (!preview.innerHTML.trim()) return;
+  html2pdf().from(preview).save();
+}
+
+// =================== UTILIDADES ===================
+function establecerFechaActual() {
+  const ahora = new Date();
+  const fechaFormateada = ahora.toLocaleString();
+  document.getElementById("fecha-actual").value = fechaFormateada;
+}
+
 function limpiarFormularioCompleto() {
   document.querySelector("form").reset();
   carrito = [];
@@ -159,10 +210,15 @@ function limpiarFormularioCompleto() {
   renderizarCarrito();
   actualizarTotales();
   document.getElementById("detalle-producto").style.display = "none";
+  establecerFechaActual();
 }
 
+// =================== REGISTRO DE PÁGINA ===================
 if (typeof registerPageScript === "function") {
   registerPageScript("paginas_body/Facturas.html", () => {
-    cargarClientes(); // cualquier función de inicialización que necesites
+    cargarClientes();
+    establecerFechaActual();
   });
 }
+
+
