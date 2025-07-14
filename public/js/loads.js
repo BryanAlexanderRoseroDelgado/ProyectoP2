@@ -197,6 +197,17 @@ const pageScriptConfig = {
     
 };
 
+  function reproducirSonidomov(id = "sonidoClickmov") {
+  if (localStorage.getItem("sonidos") === "off") return;
+
+  const audio = document.getElementById(id);
+  if (audio) {
+    audio.currentTime = 0; 
+    audio.play();
+  }
+}
+
+
 function cargarContenido(pagina, id) {
     fetch(`${pagina}`)
         .then(res => res.text())
@@ -217,6 +228,9 @@ function cargarContenido(pagina, id) {
                 }
             }
         })
+
+       
+
         .catch(error => console.error(`Error loading ${pagina}:`, error));
 }
 
@@ -224,6 +238,7 @@ function executeInlineFunction(func) {
     try {
         func();
         console.log('Inline function executed successfully');
+        reproducirSonidomov();
     } catch (error) {
         console.error('Error executing inline function:', error);
     }

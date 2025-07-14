@@ -69,7 +69,7 @@ function cargarPerfiles() {
   <td>${perfil.postal}</td>
   <td>${perfil.latitud}; ${perfil.longitud}</td>
   <td><img src="${perfil.foto}" class="foto-perfil"></td>
-  <td><button class="btn-eliminar" onclick="eliminarUsuario('${clave}')">Eliminar</button></td>
+  <td><button class="btn-eliminar" onclick="reproducirSonidoborrar(); eliminarUsuario('${clave}')">Eliminar</button></td>
 `;
 
       document.getElementById("tabla-perfiles").appendChild(fila);
@@ -146,13 +146,13 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
       <h5 class="card-title fw-bold mb-2 text-center">${producto.name}</h5>
       <p class="fw-semibold text-center mb-3">Precio: $${producto.price}</p>
       <div class="d-grid mt-auto">
-       <button class="btn btn-danger btn-sm eliminar-producto"
+       <button  onclick="reproducirSonidoborrar()" class="btn btn-danger btn-sm eliminar-producto"
         data-type="${producto.type}" 
         data-name="${producto.name}">
   Eliminar
 </button>
 
-        <button class="btn btn-sm ver-mas"
+        <button onclick="reproducirSonido()" class="btn btn-sm ver-mas"
                 style="background: var(--color-fondocont2); color: var(--color-texto); border: none;"
                 onmouseover="this.style.background='var(--color-hover)'"
                 onmouseout="this.style.background='var(--color-fondocont2)'"
@@ -164,6 +164,7 @@ function cargarProductosDesdeLocalStorage(tipo, containerId) {
       </div>
     </div>
   </div>
+  <audio id="sonidoClick" src="./public/media/audio/clickf.mp3" preload="auto"></audio>
 `;
 
     contenedor.appendChild(card);

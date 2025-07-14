@@ -34,11 +34,16 @@
         <div class="mb-3">
             <label for="imagenProducto" class="form-label" style="color: var(--color-sesion-texto)">Foto del
                 producto:</label>
-            <input type="file" id="imagenProducto" class="form-control" accept="image/*" required>
+            <input type="file" id="imagenProducto" class="form-control" accept="image/*" required onclick="reproducirSonido()">
         </div>
 
         <div class="text-end">
-            <button type="button" class="btn btn-success" onclick="guardarProducto()">Guardar Producto</button>
+            <button type="button" class="btn btn-success" onclick="reproducirSonidonoti(); guardarProducto()">Guardar Producto</button>
         </div>
     </form>
 </section>
+
+
+<audio id="sonidoClick" src="./public/media/audio/clickf.mp3" preload="auto"></audio>
+
+<audio id="sonidoClicknoti" src="./public/media/audio/noti.mp3" preload="auto"></audio>

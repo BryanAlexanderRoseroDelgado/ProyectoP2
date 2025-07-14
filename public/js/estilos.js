@@ -190,6 +190,26 @@ function reproducirSonidonoti(id = "sonidoClicknoti") {
   }
 }
 
+function reproducirSonidoborrar(id = "sonidoClickborrar") {
+  if (localStorage.getItem("sonidos") === "off") return;
+
+  const audio = document.getElementById(id);
+  if (audio) {
+    audio.currentTime = 0; 
+    audio.play();
+  }
+}
+
+function reproducirSonidomov(id = "sonidoClickmov") {
+  if (localStorage.getItem("sonidos") === "off") return;
+
+  const audio = document.getElementById(id);
+  if (audio) {
+    audio.currentTime = 0; 
+    audio.play();
+  }
+}
+
 function configurarSonidos(valor) {
   localStorage.setItem("sonidos", valor);
 }
