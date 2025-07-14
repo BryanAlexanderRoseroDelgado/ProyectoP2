@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ver Factura</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f4f4f4;
+    }
+    .factura-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .factura-section h5 {
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container my-5">
+    <div class="factura-card">
+      <h4 class="mb-4">Ver / Imprimir Factura</h4>
+
+      <!-- Selector de factura -->
+      <div class="mb-3">
+        <label for="factura-select" class="form-label">Seleccionar factura:</label>
+        <select id="factura-select" class="form-select">
+          <option value="">-- Selecciona una factura --</option>
+          <!-- Opciones cargadas con JS -->
+        </select>
+      </div>
+
+      <!-- Datos de factura -->
+      <div id="factura-detalle" style="display: none;">
+
+        <!-- Datos del cliente -->
+        <div class="factura-section">
+          <h5>Datos del Cliente</h5>
+          <p><strong>Nombre:</strong> <span id="nombre-cliente"></span></p>
+          <p><strong>Apellido:</strong> <span id="apellido-cliente"></span></p>
+          <p><strong>Cédula:</strong> <span id="cedula-cliente"></span></p>
+          <p><strong>Celular:</strong> <span id="celular-cliente"></span></p>
+        </div>
+
+        <!-- Datos de la factura -->
+        <div class="factura-section">
+          <h5>Información de Factura</h5>
+          <p><strong>ID de Factura:</strong> <span id="id-factura"></span></p>
+          <p><strong>Fecha:</strong> <span id="fecha-factura"></span></p>
+        </div>
+
+        <!-- Tabla de productos -->
+        <div class="factura-section">
+          <h5>Productos</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="table-dark">
+                <tr>
+                  <th>Producto</th>
+                  <th>Descripción</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-productos">
+                <!-- Filas insertadas dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Totales -->
+        <div class="factura-section">
+          <h5>Resumen</h5>
+          <p><strong>Subtotal:</strong> $<span id="subtotal"></span></p>
+          <p><strong>IVA (15%):</strong> $<span id="iva"></span></p>
+          <p><strong>Total:</strong> $<span id="total"></span></p>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex gap-2 mt-4">
+          <button id="btn-descargar" class="btn btn-primary">
+            <i class="bi bi-download"></i> Descargar PDF
+          </button>
+          <button id="btn-eliminar" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar Factura
+          </button>
+        </div>
+        <br>
+      </div>
+                  <button type="button" class="btn btn-secondary"  onclick="cargarContenido('paginas_body/Facturas.html', 'contenido')">
+             Volver
+             </button>
+    </div>
+  </div>
+</body>
+</html>

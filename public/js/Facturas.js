@@ -150,50 +150,7 @@ function generarNumeroFactura() {
   return Math.floor(Math.random() * 10 ** 15).toString().padStart(15, "0");
 }
 
-// =================== MOSTRAR FACTURAS ===================
-function cargarFacturasAlSelect() {
-  const select = document.getElementById("factura-select");
-  select.innerHTML = '<option value="">-- Selecciona una factura --</option>';
 
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key.startsWith("factura_")) {
-      const factura = JSON.parse(localStorage.getItem(key));
-      const option = document.createElement("option");
-      option.value = factura.numero;
-      option.textContent = `${factura.numero} - ${factura.cliente.nombre} ${factura.cliente.apellido} - ${factura.fecha}`;
-      select.appendChild(option);
-    }
-  }
-}
-
-function mostrarFacturaSeleccionada() {
-  const id = document.getElementById("factura-select").value;
-  const data = localStorage.getItem("factura_" + id);
-  if (!data) return;
-  const factura = JSON.parse(data);
-
-  const contenedor = document.getElementById("factura-preview");
-  contenedor.innerHTML = `
-    <h5>Factura N.º ${factura.numero}</h5>
-    <p><b>Fecha:</b> ${factura.fecha}</p>
-    <p><b>Cliente:</b> ${factura.cliente.nombre} ${factura.cliente.apellido}</p>
-    <hr>
-    ${factura.productos.map(p => `
-      <p>${p.producto.name} (${p.cantidad} × $${p.producto.price}) = $${p.subtotal.toFixed(2)}</p>
-    `).join("")}
-    <hr>
-    <p><b>Subtotal:</b> $${factura.subtotal.toFixed(2)}</p>
-    <p><b>IVA:</b> $${factura.iva.toFixed(2)}</p>
-    <p><b>Total:</b> $${factura.total.toFixed(2)}</p>
-  `;
-}
-
-function imprimirFactura() {
-  const preview = document.getElementById("factura-preview");
-  if (!preview.innerHTML.trim()) return;
-  html2pdf().from(preview).save();
-}
 
 // =================== UTILIDADES ===================
 function establecerFechaActual() {
@@ -203,15 +160,37 @@ function establecerFechaActual() {
 }
 
 function limpiarFormularioCompleto() {
-  document.querySelector("form").reset();
+  document.querySelector("form").reset();  // limpia inputs normales
+
+  // Limpiar campos deshabilitados manualmente
+  document.getElementById("nombre-cliente").value = "";
+  document.getElementById("apellido-cliente").value = "";
+  document.getElementById("cedula-cliente").value = "";
+  document.getElementById("celular-cliente").value = "";
+
+  // Reiniciar selects
+  document.getElementById("cliente-select").value = "";
+  document.getElementById("tipo-producto").value = "";
+  document.getElementById("producto-select").innerHTML = '<option value="">-- Selecciona un producto --</option>';
+
+  // Reiniciar cantidad
+  document.getElementById("cantidad-producto").value = 1;
+
+  // Resetear variables globales
   carrito = [];
   productosCargados = [];
   clienteSeleccionado = null;
+
+  // Limpiar vista
   renderizarCarrito();
   actualizarTotales();
   document.getElementById("detalle-producto").style.display = "none";
+
+  // Restaurar clientes y fecha
+  cargarClientes();
   establecerFechaActual();
 }
+
 
 // =================== REGISTRO DE PÁGINA ===================
 if (typeof registerPageScript === "function") {
@@ -220,5 +199,3 @@ if (typeof registerPageScript === "function") {
     establecerFechaActual();
   });
 }
-
-

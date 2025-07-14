@@ -320,7 +320,15 @@ const pageScriptConfig = {
 
     },
 
-    
+        'paginas_body/VerFact.html': async () => {
+        await loadExternalScript('./public/js/VerFact.js');
+        cargarFacturas();
+        document.getElementById("factura-select").addEventListener("change", mostrarFacturaSeleccionada);
+        document.getElementById("btn-descargar").addEventListener("click", descargarFacturaPDF);
+        document.getElementById("btn-eliminar").addEventListener("click", eliminarFactura);
+        }
+
+
 };
 
   function reproducirSonidomov(id = "sonidoClickmov") {

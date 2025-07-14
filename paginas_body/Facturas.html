@@ -1,16 +1,19 @@
 <style>
+  /* Tarjeta del formulario */
   .card-formulario {
-    background: var(--color-fondo);
-    
+    background: var(--color-sesion);
+    color: var(--color-sesion-texto);
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--color-borde);
   }
 
+  /* Campos de entrada */
   .form-control,
   .form-select {
     background: #ffffff34;
+    color: var(--color-sesion-texto);
     border: 2px solid var(--color-borde);
     border-radius: 0.5rem;
     transition: border-color 0.3s ease;
@@ -30,9 +33,10 @@
     cursor: not-allowed;
   }
 
+  /* Botones */
   .btn-custom {
     background: var(--color-boton);
-    
+    color: var(--color-sesion-texto);
     border: none;
     transition: background 0.3s ease;
   }
@@ -48,6 +52,7 @@
   }
 </style>
 
+<!-- INICIO DEL FORMULARIO -->
 <div class="container-fluid page-body-wrapper py-4 px-4">
   <div class="main-panel">
     <div class="content-wrapper">
@@ -58,27 +63,17 @@
               <h4 class="card-title text-uppercase">Facturación</h4>
               <form class="form-sample" autocomplete="off" aria-labelledby="form-title">
 
+                <!-- Información del cliente -->
                 <section class="mb-4">
                   <h5 id="form-title">Cliente</h5>
                   <label for="cliente-select" class="form-label">Seleccionar cliente:</label>
-                  <select id="cliente-select" class="form-select mb-3 text-black" onchange="llenarDatosCliente()">
+                  <select id="cliente-select" class="form-select mb-3" onchange="llenarDatosCliente()">
                     <option value="">-- Nuevo cliente --</option>
                   </select>
 
+                  <!-- Datos del cliente -->
                   <div id="datos-cliente" class="row g-3">
                     <div class="col-md-6">
-<<<<<<< Updated upstream
-                      <input type="text" id="nombre-cliente" class="form-control text-black" placeholder="Nombre" disabled>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="text" id="apellido-cliente" class="form-control text-black" placeholder="Apellido" disabled>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="text" id="cedula-cliente" class="form-control text-black" placeholder="Cédula" disabled>
-                    </div>
-                    <div class="col-md-6">
-                      <input type="text" id="celular-cliente" class="form-control text-black" placeholder="Celular" disabled>
-=======
                       <label class="form-label">Nombre:</label>
                       <input type="text" id="nombre-cliente" class="form-control" disabled>
                     </div>
@@ -93,36 +88,38 @@
                     <div class="col-md-6">
                       <label class="form-label">Celular:</label>
                       <input type="text" id="celular-cliente" class="form-control" disabled>
->>>>>>> Stashed changes
                     </div>
                   </div>
                 </section>
 
+                <!-- Fecha e ID -->
                 <div class="row g-3 mb-4">
                   <div class="col-md-6">
                     <label class="form-label">Fecha actual:</label>
-                    <input type="text" class="form-control" id="fecha-actual" disabled>
+                    <input type="text" class="form-control" value="" disabled id="fecha-actual">
                   </div>
                 </div>
 
+                <!-- Tipo de producto -->
                 <div class="row g-3 mb-3">
                   <div class="col-md-5">
                     <label for="tipo-producto" class="form-label">Tipo de producto:</label>
                     <select id="tipo-producto" class="form-select" onchange="cargarProductosPorTipo()">
-                      <option value="" class="text-black">-- Selecciona un tipo --</option>
-                      <option value="teclado" class="text-black">Teclado</option>
-                      <option value="mouse" class="text-black">Mouse</option>
-                      <option value="auricular" class="text-black">Auricular</option>
+                      <option value="">-- Selecciona un tipo --</option>
+                      <option value="teclado">Teclado</option>
+                      <option value="mouse">Mouse</option>
+                      <option value="auricular">Auricular</option>
                     </select>
                   </div>
                 </div>
 
+                <!-- Sección de productos -->
                 <section class="mb-4">
                   <h5>Productos</h5>
                   <div class="row align-items-end g-3 mb-3">
                     <div class="col-md-5">
                       <label for="producto-select" class="form-label">Seleccionar producto:</label>
-                      <select id="producto-select" class="form-select text-black" onchange="mostrarDetallesProducto()">
+                      <select id="producto-select" class="form-select" onchange="mostrarDetallesProducto()">
                         <option value="">-- Selecciona un producto --</option>
                       </select>
                     </div>
@@ -131,22 +128,19 @@
                       <input type="number" min="1" value="1" id="cantidad-producto" class="form-control">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" onclick="reproducirSonido(); agregarAlCarrito()" class="btn btn-success w-100">
+                      <button type="button" onclick="agregarAlCarrito()" class="btn btn-success w-100">
                         <i class="bi bi-cart-plus"></i> Agregar al carrito
                       </button>
                     </div>
                   </div>
 
-<<<<<<< Updated upstream
                   <!-- Detalles producto seleccionado -->
-                  <div id="detalle-producto" class="mb-3" style="display: none; background: #ffffff85; border: 1px solid var(--color-borde); border-radius: 0.5rem; padding: 1rem;">
-=======
                   <div id="detalle-producto" class="mb-3" style="display: none;">
->>>>>>> Stashed changes
                     <p class="mb-1"><b>Descripción:</b> <span id="descripcion-producto"></span></p>
                     <p class="mb-1"><b>Precio unitario:</b> $<span id="precio-producto">0.00</span></p>
                   </div>
 
+                  <!-- Carrito -->
                   <div id="carrito-container" class="table-responsive">
                     <table class="table table-bordered table-striped table-hover text-white">
                       <thead class="table-dark">
@@ -166,24 +160,26 @@
 
                 <hr class="my-4">
 
+                <!-- Resumen de totales -->
                 <section class="mb-4">
                   <h5>Resumen</h5>
-                  <p class="fw-bold">Subtotal: $<span id="subtotal">0.00</span></p>
-                  <p class="fw-bold">IVA (15%): $<span id="iva">0.00</span></p>
+                  <p class="fw-bold" style="color: var(--color-sesion-texto)">Subtotal: $<span id="subtotal">0.00</span></p>
+                  <p class="fw-bold" style="color: var(--color-sesion-texto)">IVA (15%): $<span id="iva">0.00</span></p>
                   <p class="fw-bold text-primary">Total: $<span id="total">0.00</span></p>
                 </section>
-
+                <!-- BOTONES -->
                 <div class="d-flex gap-2">
-                  <button type="button" onclick="reproducirSonidonoti(); generarFactura()" class="btn btn-custom">
+                  <button type="button" onclick="generarFactura()" class="btn btn-custom">
                     <i class="bi bi-receipt"></i> Generar factura
                   </button>
-                  <button type="reset" onclick="reproducirSonidoborrar(); limpiarFormularioCompleto()" class="btn btn-outline-danger">
+                  <button type="reset" onclick="limpiarFormularioCompleto()" class="btn btn-outline-danger">
                     <i class="bi bi-x-circle"></i> Limpiar
                   </button>
-                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalFacturas">
-                    <i class="bi bi-printer"></i> Imprimir factura
+                        <button type="button" class="btn btn-primary"  onclick="cargarContenido('paginas_body/VerFact.html', 'contenido')">
+                    <i class="bi bi-file-earmark-pdf"></i> Ver/Descargar PDF
                   </button>
                 </div>
+
               </form>
             </div>
           </div>
@@ -192,39 +188,3 @@
     </div>
   </div>
 </div>
-
-<<<<<<< Updated upstream
-<audio id="sonidoClickborrar"  src="./public/media/audio/borrado.mp3" preload="auto"></audio>
-
-<audio id="sonidoClick" src="./public/media/audio/clickf.mp3" preload="auto"></audio>
-
-<audio id="sonidoClicknoti" src="./public/media/audio/noti.mp3" preload="auto"></audio>
-=======
-<div class="modal fade" id="modalFacturas" tabindex="-1" aria-labelledby="modalFacturasLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalFacturasLabel">Seleccionar factura para imprimir</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="factura-select" class="form-label">Facturas disponibles:</label>
-          <select class="form-select" id="factura-select" onchange="mostrarFacturaSeleccionada()">
-            <option value="">-- Selecciona una factura --</option>
-          </select>
-        </div>
-        <div id="factura-preview" class="border p-3 bg-light rounded text-dark">
-          <!-- Vista previa de factura -->
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="imprimirFactura()">
-          <i class="bi bi-file-earmark-pdf"></i> Descargar PDF
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
->>>>>>> Stashed changes
