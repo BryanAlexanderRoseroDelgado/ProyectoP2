@@ -230,15 +230,23 @@ function executeInlineFunction(func) {
 }
 
 function loadExternalScript(scriptPath) {
-    if (!loadedScripts.has(scriptPath)) {
+    return new Promise((resolve, reject) => {
+        if (loadedScripts.has(scriptPath)) {
+            // Script already loaded, resolve immediately
+            resolve();
+            return;
+        }
+
         const script = document.createElement('script');
         script.src = scriptPath;
         script.onload = () => {
             loadedScripts.add(scriptPath);
             console.log(`Script loaded: ${scriptPath}`);
+            resolve();
         };
         script.onerror = () => {
             console.error(`Error loading script: ${scriptPath}`);
+            reject(new Error(`Failed to load script: ${scriptPath}`));
         };
         script.setAttribute('data-dynamic-script', 'true');
         script.setAttribute('data-script-src', scriptPath);
@@ -246,7 +254,7 @@ function loadExternalScript(scriptPath) {
         
         // Track the script element for potential cleanup
         scriptElements.set(scriptPath, script);
-    }
+    });
 }
 
 function cleanupDynamicScripts() {
