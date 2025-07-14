@@ -4,11 +4,11 @@ const scriptElements = new Map();
 
 // Configuration object mapping HTML pages to their corresponding scripts
 // Can contain either script paths (string) or inline code (function)
+
 const pageScriptConfig = {
     'paginas_body/Casa.html': () => {
         console.log('Casa page loaded');
     },
-    
     'paginas_body/Crear.html': async () => {
         console.log('Crear page loaded');
         
@@ -334,6 +334,10 @@ const pageScriptConfig = {
 }
 
 
+function registerPageScript(page, callback) {
+  pageScriptConfig[page] = callback;
+}
+
 function cargarContenido(pagina, id) {
     // Clean up camera state before loading new content
     if (typeof window.resetCameraForNavigation === 'function') {
@@ -449,3 +453,4 @@ function login() {
         document.getElementById("login-error").style.display = "block";
     }
 }
+

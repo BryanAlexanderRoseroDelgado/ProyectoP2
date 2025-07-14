@@ -1,8 +1,8 @@
 <style>
   /* Tarjeta del formulario */
   .card-formulario {
-    background: var(--color-sesion);
-    color: var(--color-sesion-texto);
+    background: var(--color-fondo);
+    
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -13,7 +13,6 @@
   .form-control,
   .form-select {
     background: #ffffff34;
-    color: var(--color-sesion-texto);
     border: 2px solid var(--color-borde);
     border-radius: 0.5rem;
     transition: border-color 0.3s ease;
@@ -36,7 +35,7 @@
   /* Botones */
   .btn-custom {
     background: var(--color-boton);
-    color: var(--color-sesion-texto);
+    
     border: none;
     transition: background 0.3s ease;
   }
@@ -58,166 +57,100 @@
     <div class="content-wrapper">
       <div class="row">
         <div class="col-12 grid-margin">
-          <div class="card  transparenteforms">
+          <div class="card card-formulario">
             <div class="card-body">
               <h4 class="card-title text-uppercase">Facturación</h4>
               <form class="form-sample" autocomplete="off" aria-labelledby="form-title">
-                <p class="card-description"  style="color: var(--color-sesion-texto)">Información del comprador</p>
 
-                <!-- Cliente -->
+                <!-- Información del cliente -->
                 <section class="mb-4">
                   <h5 id="form-title">Cliente</h5>
                   <label for="cliente-select" class="form-label">Seleccionar cliente:</label>
-                  <select id="cliente-select" class="form-select" onchange="llenarDatosCliente()">
+                  <select id="cliente-select" class="form-select mb-3 text-black" onchange="llenarDatosCliente()">
                     <option value="">-- Nuevo cliente --</option>
                   </select>
+
+                  <!-- Datos del cliente -->
+                  <div id="datos-cliente" class="row g-3">
+                    <div class="col-md-6">
+                      <input type="text" id="nombre-cliente" class="form-control text-black" placeholder="Nombre" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" id="apellido-cliente" class="form-control text-black" placeholder="Apellido" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" id="cedula-cliente" class="form-control text-black" placeholder="Cédula" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" id="celular-cliente" class="form-control text-black" placeholder="Celular" disabled>
+                    </div>
+                  </div>
                 </section>
 
-                <!-- Datos del cliente -->
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="cedula-cliente" class="form-label">Número de cédula</label>
-                    <input id="cedula-cliente" type="number" class="form-control" placeholder="Ej: 0102030405" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="nombre-cliente" class="form-label">Nombres Completos</label>
-                    <input id="nombre-cliente" type="text" class="form-control" placeholder="Ej: Juan Carlos" />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="apellido-cliente" class="form-label">Apellidos Completos</label>
-                    <input id="apellido-cliente" type="text" class="form-control" placeholder="Ej: Pérez Gómez" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="fechanacimiento-cliente" class="form-label">Fecha de nacimiento</label>
-                    <input id="fechanacimiento-cliente" type="date" class="form-control" min="1960-05-01" max="2007-05-01" />
+                <!-- Tipo de producto -->
+                <div class="row g-3 mb-3">
+                  <div class="col-md-5">
+                    <label for="tipo-producto" class="form-label">Tipo de producto:</label>
+                    <select id="tipo-producto" class="form-select" onchange="cargarProductosPorTipo()">
+                      <option value="" class="text-black">-- Selecciona un tipo --</option>
+                      <option value="teclado" class="text-black">Teclado</option>
+                      <option value="mouse" class="text-black">Mouse</option>
+                      <option value="auricular" class="text-black">Auricular</option>
+                    </select>
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="telefono-cliente" class="form-label">Número de celular</label>
-                    <input id="telefono-cliente" type="tel" class="form-control" placeholder="Ej: 0991234567" />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="Correo-cliente" class="form-label">Correo electrónico</label>
-                    <input id="Correo-cliente" type="email" class="form-control" placeholder="correo@ejemplo.com" />
-                  </div>
-                </div>
 
-                <hr class="my-4">
-
-                <!-- Dirección -->
+                <!-- Sección de productos -->
                 <section class="mb-4">
-                  <h5>Dirección del Cliente</h5>
-                  <p class="card-description" style="color: var(--color-sesion-texto)">Información de dirección y ubicación</p>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="direccion-cliente" class="form-label">Dirección principal</label>
-                      <input id="direccion-cliente" type="text" class="form-control" placeholder="Calle principal y secundaria" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="postal-cliente" class="form-label">Código postal</label>
-                      <input id="postal-cliente" type="text" class="form-control" placeholder="Ej: 170123" />
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="ciudad-cliente" class="form-label">Ciudad</label>
-                      <input id="ciudad-cliente" type="text" class="form-control" placeholder="Ej: Quito" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="pais-cliente" class="form-label">País</label>
-                      <select class="form-select" id="pais-cliente">
-                        <option>Ecuador</option>
-                        <option>Italia</option>
-                        <option>México</option>
-                        <option>Perú</option>
+                  <h5>Productos</h5>
+                  <div class="row align-items-end g-3 mb-3">
+                    <div class="col-md-5">
+                      <label for="producto-select" class="form-label">Seleccionar producto:</label>
+                      <select id="producto-select" class="form-select text-black" onchange="mostrarDetallesProducto()">
+                        <option value="">-- Selecciona un producto --</option>
                       </select>
                     </div>
-                  </div>
-                </section>
-
-                <hr class="my-4">
-
-                <!-- Fotografía -->
-                <section class="mb-4">
-                  <h5>Fotografía del Cliente</h5>
-                  <p class="card-description" style="color: var(--color-sesion-texto)">Captura una fotografía del cliente</p>
-                  <div class="row g-3">
-                    <div class="col-12 text-center">
-                      <!-- Canvas for camera display and photo capture -->
-                      <div class="d-flex flex-column align-items-center">
-                        <!-- Camera options -->
-                        <button type="button" class="btn btn-outline-primary mb-3" onclick="abrirCamaraCliente()">
-                          <i class="bi bi-camera"></i> Abrir cámara
-                        </button>
-                        <video id="video_cliente" width="300" height="200" style="display: none; border: 2px solid #ccc; border-radius: 8px;"></video>
-                        <button type="button" id="capturar_cliente" class="btn btn-success mt-2" onclick="capturarFotoCliente()" style="display: none;">
-                          <i class="bi bi-camera-fill"></i> Capturar foto
-                        </button>
-                        
-                        <!-- File upload option -->
-                        <input type="file" id="upload-photo-cliente" accept="image/*" style="display: none;" onchange="handleFileUploadCliente(this)">
-                        <button type="button" id="subir-archivo-cliente-btn" class="btn btn-outline-info mb-3" onclick="triggerFileUploadCliente()">
-                          <i class="bi bi-upload"></i> Subir Archivo
-                        </button>
-                        
-                        <canvas id="foto_resultado_cliente" width="300" height="200" style="display: none; border: 2px solid #28a745; border-radius: 8px; margin-top: 10px;"></canvas>
-                        
-                        <!-- Reset/change photo button -->
-                        <button type="button" id="cambiar-foto-cliente" class="btn btn-outline-warning mt-2" onclick="resetFotoCliente()" style="display: none;">
-                          <i class="bi bi-arrow-clockwise"></i> Cambiar foto
-                        </button>
-                      </div>
+                    <div class="col-md-3">
+                      <label for="cantidad-producto" class="form-label">Cantidad:</label>
+                      <input type="number" min="1" value="1" id="cantidad-producto" class="form-control">
                     </div>
-                  </div>
-                </section>
-
-                <hr class="my-4">
-
-                <!-- Ubicación -->
-                <section class="mb-4">
-                  <h5>Ubicación del Cliente</h5>
-                  <p class="card-description" style="color: var(--color-sesion-texto)">Registre la ubicación de envío del cliente</p>
-                  <div class="row">
-                    <div class="col-12 mb-3">
-                      <button type="button" class="btn btn-outline-primary" onclick="localizarCliente()">
-                        <i class="bi bi-geo-alt"></i> Acceder a ubicación
+                    <div class="col-md-4">
+                      <button type="button" onclick="reproducirSonido(); agregarAlCarrito()" class="btn btn-success w-100">
+                        <i class="bi bi-cart-plus"></i> Agregar al carrito
                       </button>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label for="latitud-cliente" class="form-label">Latitud</label>
-                      <input id="latitud-cliente" type="text" class="form-control" placeholder="Latitud automática" value="0" />
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label for="longitud-cliente" class="form-label">Longitud</label>
-                      <input id="longitud-cliente" type="text" class="form-control" placeholder="Longitud automática" value="0" />
-                    </div>
+
+                  <!-- Detalles producto seleccionado -->
+                  <div id="detalle-producto" class="mb-3" style="display: none; background: #ffffff85; border: 1px solid var(--color-borde); border-radius: 0.5rem; padding: 1rem;">
+                    <p class="mb-1"><b>Descripción:</b> <span id="descripcion-producto"></span></p>
+                    <p class="mb-1"><b>Precio unitario:</b> $<span id="precio-producto">0.00</span></p>
                   </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div id="map_cliente" style="height: 200px; border-radius: 8px; margin-top: 10px;"></div>
-                    </div>
+
+                  <!-- Carrito -->
+                  <div id="carrito-container" class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover text-white">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>Producto</th>
+                          <th>Descripción</th>
+                          <th>Precio</th>
+                          <th>Cantidad</th>
+                          <th>Subtotal</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="carrito-tabla">
+                        <!-- Elementos dinámicos -->
+                      </tbody>
+                    </table>
                   </div>
                 </section>
 
                 <hr class="my-4">
 
-                <!-- Productos -->
-                <section class="mb-4">
-                  <h5>Productos</h5>
-                  <div id="productos-container" class="row"></div>
-                </section>
-
-                <hr class="my-4">
-
-                <!-- Resumen -->
+                <!-- Resumen de totales -->
                 <section class="mb-4">
                   <h5>Resumen</h5>
                   <p class="fw-bold" style="color: var(--color-sesion-texto)">Subtotal: $<span id="subtotal">0.00</span></p>
@@ -227,10 +160,10 @@
 
                 <!-- Botones -->
                 <div class="d-flex gap-2">
-                  <button type="button" onclick="generarFactura()" class="btn btn-custom">
+                  <button type="button" onclick="reproducirSonidonoti(); generarFactura()" class="btn btn-custom">
                     <i class="bi bi-receipt"></i> Generar factura
                   </button>
-                  <button type="reset" onclick="limpiarFormularioCompleto()" class="btn btn-outline-danger">
+                  <button type="reset" onclick="reproducirSonidoborrar(); limpiarFormularioCompleto()" class="btn btn-outline-danger">
                     <i class="bi bi-x-circle"></i> Limpiar
                   </button>
                 </div>
@@ -242,5 +175,10 @@
       </div>
     </div>
   </div>
-
 </div>
+
+<audio id="sonidoClickborrar"  src="./public/media/audio/borrado.mp3" preload="auto"></audio>
+
+<audio id="sonidoClick" src="./public/media/audio/clickf.mp3" preload="auto"></audio>
+
+<audio id="sonidoClicknoti" src="./public/media/audio/noti.mp3" preload="auto"></audio>
